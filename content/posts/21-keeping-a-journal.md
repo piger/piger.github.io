@@ -1,7 +1,6 @@
 ---
 title: "Keeping a journal"
 date: 2021-12-09T16:40:45Z
-draft: true
 tags:
 - self-improvement
 categories:
