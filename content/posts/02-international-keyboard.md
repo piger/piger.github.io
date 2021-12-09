@@ -2,7 +2,7 @@
 title: International Keyboard
 date: 2013-04-22
 tags:
-- osx
+- macOS
 - keyboard
 - euro
 summary: Typing accented letters (both acute and grave) with a U.S. keyboard layout.
@@ -38,6 +38,6 @@ to type letters with a grave accent.
 
 Bonus feature: ALT+5 to type the € symbol.
 
-You can download my layout here: [U.S. Euro](us_euro.keylayout); copy it in
+You can download my layout here: [U.S. Euro](/attachments/us_euro.keylayout); copy it in
 `~/Library/Keyboard Layouts` and don't forget to close and reopen System
 Preferences, to make it reload all the files.

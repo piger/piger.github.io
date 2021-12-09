@@ -3,17 +3,17 @@ title: "Into the Breach on OS X with Wine"
 date: 2018-02-28
 summary: Quick and simple tutorial on how to run "Into the Breach" on OS X using Wine.
 tags:
-- osx
+- macOS
 - games
 - wine
-thumbnail: ITB_ss_1.png
+thumbnail: thumbnails/ITB_ss_1.png
 categories:
 - Games and Videogames
 ---
 
 Quick tutorial blah.
 
-![Thumbnail](/ITB_ss_1.png)
+![Thumbnail](/thumbnails/ITB_ss_1.png)
 
 ## Requirements
 

@@ -3,7 +3,7 @@ title: "OSX: switch font size when an external display is attached"
 date: 2016-07-31
 summary: How to change font size in Emacs and iTerm2 when an external display is attached.
 tags:
-- osx
+- macOS
 - hammerspoon
 - emacs
 - iterm2

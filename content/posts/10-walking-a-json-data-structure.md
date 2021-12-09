@@ -5,7 +5,6 @@ summary: How to walk a JSON data structure to extract the selected leaf nodes.
 tags:
 - python
 - json
-thumbnail: such_json.jpg
 categories:
 - Tips and Tricks
 ---

@@ -4,7 +4,7 @@ date: 2013-08-05
 tags:
 - dnssec
 - dns
-- osx
+- macOS
 summary: Describe the installation of unbound DNS(SEC) resolver on OS X.
 categories:
 - System Administration

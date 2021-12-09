@@ -3,9 +3,9 @@ title: Better command line history in zsh with peco
 date: 2019-12-13T15:20:00Z
 tags:
 - zsh
-- history
-- peco
+- command-line
 summary: How one simple change improved my command line experience by a lot.
+lead: the good command-line stuff
 categories:
 - Tips and Tricks
 ---
@@ -41,7 +41,7 @@ bindkey '^R' peco_select_history
 
 This is how it looks like when I press `CTRL-R` and type "man":
 
-<img src="zsh-peco.png" width="600" height="300">
+![screenshot](/images/zsh-peco.png)
 
 This become really useful when you configure zsh to have a huge history size:
 

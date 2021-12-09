@@ -2,9 +2,8 @@
 title: Weird perl errors on OS X 10.10 (Yosemite)
 date: 2014-10-20
 tags:
-- osx
+- macOS
 - perl
-- yosemite
 summary: Somehow during the Yosemite installation some permissions on Perl directories got messed up.
 categories:
 - Tips and Tricks
