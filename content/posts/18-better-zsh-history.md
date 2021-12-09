@@ -7,7 +7,7 @@ tags:
 - peco
 summary: How one simple change improved my command line experience by a lot.
 categories:
-- tips
+- Tips and Tricks
 ---
 
 Some years ago I bumped into [peco](https://github.com/peco/peco), a *Simplistic interactive

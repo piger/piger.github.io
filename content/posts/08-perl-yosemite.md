@@ -7,7 +7,7 @@ tags:
 - yosemite
 summary: Somehow during the Yosemite installation some permissions on Perl directories got messed up.
 categories:
-- tips
+- Tips and Tricks
 ---
 
 ```

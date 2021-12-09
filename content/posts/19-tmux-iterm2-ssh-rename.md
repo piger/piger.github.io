@@ -8,7 +8,7 @@ tags:
 - iterm2
 summary: Rename your tmux or iTerm2 window when connecting to a remote host via OpenSSH.
 categories:
-- tips
+- Tips and Tricks
 ---
 
 This is an update of my [old post](/posts/01-tmux-ssh-rename/).

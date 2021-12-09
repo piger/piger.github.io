@@ -6,7 +6,7 @@ tags:
 - ssh
 - tmux
 categories:
-- tips
+- Tips and Tricks
 summary: Rename your tmux window when connecting to a remote host
 ---
 

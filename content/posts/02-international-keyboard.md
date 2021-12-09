@@ -7,7 +7,7 @@ tags:
 - euro
 summary: Typing accented letters (both acute and grave) with a U.S. keyboard layout.
 categories:
-- tips
+- Tips and Tricks
 ---
 
 The best keyboard layout for programming or dealing with UNIX-like

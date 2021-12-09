@@ -8,7 +8,7 @@ tags:
 - emacs
 - iterm2
 categories:
-- tips
+- Tips and Tricks
 ---
 
 When I need to work long hours outside of the office I usually set a smaller font in iTerm2 and Emacs (those are the applications

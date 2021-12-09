@@ -7,7 +7,7 @@ tags:
 - json
 thumbnail: such_json.jpg
 categories:
-- tips
+- Tips and Tricks
 ---
 
 A friend of mine came to me for help with a Python programming problem: he needed a way to extract some values from a JSON data structure by specifying the full *path* of each value; for example, given the following data structure:
