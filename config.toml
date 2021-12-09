@@ -9,6 +9,11 @@ googleAnalytics = "" # Enable Google Analytics by entering your tracking id
 [permalinks]
   posts = '/posts/:year/:month/:title/'
 
+[markup]
+  [markup.highlight]
+    style = 'arduino'
+    tabWidth = 4
+
 [Author] # Used in authorbox
   name = "Daniel Kertesz"
   bio = "John Doe's true identity is unknown. Maybe he is a successful blogger or writer. Nobody knows it."
