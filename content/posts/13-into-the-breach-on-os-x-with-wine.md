@@ -9,9 +9,8 @@ tags:
 thumbnail: thumbnails/ITB_ss_1.png
 categories:
 - Games and Videogames
+toc: false
 ---
-
-Quick tutorial blah.
 
 ![Thumbnail](/thumbnails/ITB_ss_1.png)
 

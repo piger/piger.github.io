@@ -8,6 +8,7 @@ tags:
 summary: Replicating vim code folding inside Emacs.
 categories:
 - Tips and Tricks
+toc: false
 ---
 
 ## Vim code folding
