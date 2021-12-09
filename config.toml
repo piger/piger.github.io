@@ -66,7 +66,7 @@ googleAnalytics = "" # Enable Google Analytics by entering your tracking id
 
 [Params.widgets.social]
   github = "piger"
-  email = "daniel@spatof.org"
+  email = "daniel -at- spatof.org"
 
 [[Params.widgets.social.custom]]
   title = "Buy me a Coffee!"
