@@ -78,35 +78,35 @@ the name of the remote host and use it to name the current tmux window; as a
 bonus feature the function will restore the previous window&rsquo;s name upon ssh
 termination.</p>
 <p>Update 20-Jun-2016: I&rsquo;ve updated the <code>ssh</code> function.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>ssh<span style=color:#f92672>()</span> <span style=color:#f92672>{</span>
-    <span style=color:#75715e># ssh wrapper function to set tmux window (pane?) title</span>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>ssh<span style=color:#728e00>()</span> <span style=color:#728e00>{</span>
+    <span style=color:#95a5a6># ssh wrapper function to set tmux window (pane?) title</span>
 
-    <span style=color:#75715e># bypass this function if stdout is not a terminal, to avoid messing up</span>
-    <span style=color:#75715e># the output with our printf() calls.</span>
-    <span style=color:#f92672>[[</span> -t <span style=color:#ae81ff>1</span> <span style=color:#f92672>]]</span> <span style=color:#f92672>||</span> exec command ssh $@
+    <span style=color:#95a5a6># bypass this function if stdout is not a terminal, to avoid messing up</span>
+    <span style=color:#95a5a6># the output with our printf() calls.</span>
+    <span style=color:#728e00>[[</span> -t <span style=color:#8a7b52>1</span> <span style=color:#728e00>]]</span> <span style=color:#728e00>||</span> <span style=color:#728e00>exec</span> <span style=color:#728e00>command</span> ssh <span style=color:#434f54>$@</span>
 
-    local prev_window_name<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>tmux display-message -p <span style=color:#e6db74>&#34;#{window_name}&#34;</span><span style=color:#66d9ef>)</span>
-    local prev_pane_title<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>tmux display-message -p <span style=color:#e6db74>&#34;#{pane_title}&#34;</span><span style=color:#66d9ef>)</span>
-    local hostname<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>perl -e <span style=color:#e6db74>&#39;if (length(@ARGV) == 1) { print $ARGV[0]; exit; } else { foreach $h (@ARGV) { if ($h =~ /[a-z\._-]+\.[a-z]{2,}/) { print $h; exit; } } }&#39;</span> -- $@<span style=color:#66d9ef>)</span>
+    <span style=color:#728e00>local</span> <span style=color:#434f54>prev_window_name</span><span style=color:#728e00>=</span><span style=color:#728e00>$(</span>tmux display-message -p <span style=color:#7f8c8d>&#34;#{window_name}&#34;</span><span style=color:#728e00>)</span>
+    <span style=color:#728e00>local</span> <span style=color:#434f54>prev_pane_title</span><span style=color:#728e00>=</span><span style=color:#728e00>$(</span>tmux display-message -p <span style=color:#7f8c8d>&#34;#{pane_title}&#34;</span><span style=color:#728e00>)</span>
+    <span style=color:#728e00>local</span> <span style=color:#434f54>hostname</span><span style=color:#728e00>=</span><span style=color:#728e00>$(</span>perl -e <span style=color:#7f8c8d>&#39;if (length(@ARGV) == 1) { print $ARGV[0]; exit; } else { foreach $h (@ARGV) { if ($h =~ /[a-z\._-]+\.[a-z]{2,}/) { print $h; exit; } } }&#39;</span> -- <span style=color:#434f54>$@</span><span style=color:#728e00>)</span>
 
-    <span style=color:#66d9ef>if</span> <span style=color:#f92672>[[</span> -z $hostname <span style=color:#f92672>]]</span>; <span style=color:#66d9ef>then</span>
-        command ssh $@
-    <span style=color:#66d9ef>else</span>
-        <span style=color:#75715e># Set window name and pane title when there&#39;s only 1 pane (i.e. the whole window),</span>
-        <span style=color:#75715e># otherwise set just the pane title.</span>
-        <span style=color:#66d9ef>if</span> <span style=color:#f92672>[[</span> <span style=color:#66d9ef>$(</span>tmux display-message -p <span style=color:#e6db74>&#34;#{window_panes}&#34;</span><span style=color:#66d9ef>)</span> <span style=color:#f92672>==</span> <span style=color:#ae81ff>1</span> <span style=color:#f92672>]]</span>; <span style=color:#66d9ef>then</span>
-            printf <span style=color:#e6db74>&#34;\033k</span><span style=color:#e6db74>${</span>hostname<span style=color:#e6db74>}</span><span style=color:#e6db74>\033\\&#34;</span>
-            printf <span style=color:#e6db74>&#34;\033]2;</span><span style=color:#e6db74>${</span>hostname<span style=color:#e6db74>}</span><span style=color:#e6db74>\033\\&#34;</span>
-        <span style=color:#66d9ef>else</span>
-            printf <span style=color:#e6db74>&#34;\033]2;</span><span style=color:#e6db74>${</span>hostname<span style=color:#e6db74>}</span><span style=color:#e6db74>\033\\&#34;</span>
-        <span style=color:#66d9ef>fi</span>
-        command ssh $@
-        <span style=color:#66d9ef>if</span> <span style=color:#f92672>[[</span> <span style=color:#66d9ef>$(</span>tmux display-message -p <span style=color:#e6db74>&#34;#{window_panes}&#34;</span><span style=color:#66d9ef>)</span> <span style=color:#f92672>==</span> <span style=color:#ae81ff>1</span> <span style=color:#f92672>]]</span>; <span style=color:#66d9ef>then</span>
-            printf <span style=color:#e6db74>&#34;\033k</span><span style=color:#e6db74>${</span>prev_window_name<span style=color:#e6db74>}</span><span style=color:#e6db74>\033\\&#34;</span>
-        <span style=color:#66d9ef>fi</span>
-        printf <span style=color:#e6db74>&#34;\033]2;</span><span style=color:#e6db74>${</span>prev_pane_title<span style=color:#e6db74>}</span><span style=color:#e6db74>\033\\&#34;</span>
-    <span style=color:#66d9ef>fi</span>
-<span style=color:#f92672>}</span>
+    <span style=color:#728e00>if</span> <span style=color:#728e00>[[</span> -z <span style=color:#434f54>$hostname</span> <span style=color:#728e00>]]</span>; <span style=color:#728e00>then</span>
+        <span style=color:#728e00>command</span> ssh <span style=color:#434f54>$@</span>
+    <span style=color:#728e00>else</span>
+        <span style=color:#95a5a6># Set window name and pane title when there&#39;s only 1 pane (i.e. the whole window),</span>
+        <span style=color:#95a5a6># otherwise set just the pane title.</span>
+        <span style=color:#728e00>if</span> <span style=color:#728e00>[[</span> <span style=color:#728e00>$(</span>tmux display-message -p <span style=color:#7f8c8d>&#34;#{window_panes}&#34;</span><span style=color:#728e00>)</span> <span style=color:#728e00>==</span> <span style=color:#8a7b52>1</span> <span style=color:#728e00>]]</span>; <span style=color:#728e00>then</span>
+            <span style=color:#728e00>printf</span> <span style=color:#7f8c8d>&#34;\033k</span><span style=color:#7f8c8d>${</span><span style=color:#434f54>hostname</span><span style=color:#7f8c8d>}</span><span style=color:#7f8c8d>\033\\&#34;</span>
+            <span style=color:#728e00>printf</span> <span style=color:#7f8c8d>&#34;\033]2;</span><span style=color:#7f8c8d>${</span><span style=color:#434f54>hostname</span><span style=color:#7f8c8d>}</span><span style=color:#7f8c8d>\033\\&#34;</span>
+        <span style=color:#728e00>else</span>
+            <span style=color:#728e00>printf</span> <span style=color:#7f8c8d>&#34;\033]2;</span><span style=color:#7f8c8d>${</span><span style=color:#434f54>hostname</span><span style=color:#7f8c8d>}</span><span style=color:#7f8c8d>\033\\&#34;</span>
+        <span style=color:#728e00>fi</span>
+        <span style=color:#728e00>command</span> ssh <span style=color:#434f54>$@</span>
+        <span style=color:#728e00>if</span> <span style=color:#728e00>[[</span> <span style=color:#728e00>$(</span>tmux display-message -p <span style=color:#7f8c8d>&#34;#{window_panes}&#34;</span><span style=color:#728e00>)</span> <span style=color:#728e00>==</span> <span style=color:#8a7b52>1</span> <span style=color:#728e00>]]</span>; <span style=color:#728e00>then</span>
+            <span style=color:#728e00>printf</span> <span style=color:#7f8c8d>&#34;\033k</span><span style=color:#7f8c8d>${</span><span style=color:#434f54>prev_window_name</span><span style=color:#7f8c8d>}</span><span style=color:#7f8c8d>\033\\&#34;</span>
+        <span style=color:#728e00>fi</span>
+        <span style=color:#728e00>printf</span> <span style=color:#7f8c8d>&#34;\033]2;</span><span style=color:#7f8c8d>${</span><span style=color:#434f54>prev_pane_title</span><span style=color:#7f8c8d>}</span><span style=color:#7f8c8d>\033\\&#34;</span>
+    <span style=color:#728e00>fi</span>
+<span style=color:#728e00>}</span>
 </code></pre></div><p>This can be placed in <code>~/.zshrc</code> or in a function file.</p>
 </div>
 <footer class=post__footer>

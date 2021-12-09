@@ -92,14 +92,14 @@ so I started looking for a solution.</p>
 which allows you to store your configuration profile on the filesystem and have iTerm2 pick up all the changes immediately. That&rsquo;s a start.</p>
 <p>I created a base profile in iTerm2 called &ldquo;Default&rdquo;, then I created two profile files, one for each font size; a profile file is a JSON file containing the profile
 configuration:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
-  <span style=color:#f92672>&#34;Profiles&#34;</span>: [
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
+  <span style=color:#434f54>&#34;Profiles&#34;</span>: [
     {
-      <span style=color:#f92672>&#34;Name&#34;</span>: <span style=color:#e6db74>&#34;Default+Dynamic&#34;</span>,
-      <span style=color:#f92672>&#34;Guid&#34;</span>: <span style=color:#e6db74>&#34;90B59958-1F30-419B-9E4A-B52C24700CB5&#34;</span>,
-      <span style=color:#f92672>&#34;Dynamic Profile Parent Name&#34;</span>: <span style=color:#e6db74>&#34;Default&#34;</span>,
-      <span style=color:#f92672>&#34;Normal Font&#34;</span> : <span style=color:#e6db74>&#34;FiraMono-Regular 11&#34;</span>,
-      <span style=color:#f92672>&#34;Non Ascii Font&#34;</span> : <span style=color:#e6db74>&#34;FiraMono-Regular 11&#34;</span>
+      <span style=color:#434f54>&#34;Name&#34;</span>: <span style=color:#7f8c8d>&#34;Default+Dynamic&#34;</span>,
+      <span style=color:#434f54>&#34;Guid&#34;</span>: <span style=color:#7f8c8d>&#34;90B59958-1F30-419B-9E4A-B52C24700CB5&#34;</span>,
+      <span style=color:#434f54>&#34;Dynamic Profile Parent Name&#34;</span>: <span style=color:#7f8c8d>&#34;Default&#34;</span>,
+      <span style=color:#434f54>&#34;Normal Font&#34;</span> : <span style=color:#7f8c8d>&#34;FiraMono-Regular 11&#34;</span>,
+      <span style=color:#434f54>&#34;Non Ascii Font&#34;</span> : <span style=color:#7f8c8d>&#34;FiraMono-Regular 11&#34;</span>
     }
   ]
 }
@@ -110,60 +110,60 @@ and make it the default in iTerm2 (I know, I didn&rsquo;t spend much time thinki
 system events, to react for example when an external device is connected.</p>
 <p>The following code set up a watcher to react when the display configuration changes (e.g. when you plug or unplug an external display) and it will overwrite the symlink to the
 iTerm2 dynamic profile using the large font profile when there&rsquo;s an external display connected.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-lua data-lang=lua><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>hasExternalMonitor</span>()
-   <span style=color:#66d9ef>for</span> _, screen <span style=color:#66d9ef>in</span> pairs(hs.screen.allScreens()) <span style=color:#66d9ef>do</span>
-      <span style=color:#66d9ef>if</span> screen:name() <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;Thunderbolt Display&#34;</span> <span style=color:#66d9ef>then</span>
-         <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>true</span>
-      <span style=color:#66d9ef>end</span>
-   <span style=color:#66d9ef>end</span>
-   <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>false</span>
-<span style=color:#66d9ef>end</span>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-lua data-lang=lua><span style=color:#00979d>function</span> <span style=color:#d35400>hasExternalMonitor</span>()
+   <span style=color:#00979d>for</span> <span style=color:#434f54>_</span>, <span style=color:#434f54>screen</span> <span style=color:#00979d>in</span> <span style=color:#434f54>pairs</span>(<span style=color:#434f54>hs.screen</span>.<span style=color:#434f54>allScreens</span>()) <span style=color:#00979d>do</span>
+      <span style=color:#00979d>if</span> <span style=color:#434f54>screen</span>:<span style=color:#434f54>name</span>() <span style=color:#728e00>==</span> <span style=color:#7f8c8d>&#34;Thunderbolt Display&#34;</span> <span style=color:#00979d>then</span>
+         <span style=color:#00979d>return</span> <span style=color:#00979d>true</span>
+      <span style=color:#00979d>end</span>
+   <span style=color:#00979d>end</span>
+   <span style=color:#00979d>return</span> <span style=color:#00979d>false</span>
+<span style=color:#00979d>end</span>
 
-<span style=color:#75715e>-- Switch dynamic profile in iTerm2</span>
-<span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setIterm2Profile</span>(filename)
-   hs.execute(<span style=color:#e6db74>&#34;ln -sf $HOME/Preferences/iTerm2/&#34;</span> <span style=color:#f92672>..</span> filename <span style=color:#f92672>..</span> <span style=color:#e6db74>&#34; </span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>$HOME/Library/Application Support/iTerm2/DynamicProfiles/iTerm2_Dynamic.json</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>&#34;</span>)
-<span style=color:#66d9ef>end</span>
+<span style=color:#95a5a6>-- Switch dynamic profile in iTerm2</span>
+<span style=color:#00979d>function</span> <span style=color:#d35400>setIterm2Profile</span>(<span style=color:#434f54>filename</span>)
+   <span style=color:#434f54>hs.execute</span>(<span style=color:#7f8c8d>&#34;ln -sf $HOME/Preferences/iTerm2/&#34;</span> <span style=color:#728e00>..</span> <span style=color:#434f54>filename</span> <span style=color:#728e00>..</span> <span style=color:#7f8c8d>&#34; </span><span style=color:#7f8c8d>\&#34;</span><span style=color:#7f8c8d>$HOME/Library/Application Support/iTerm2/DynamicProfiles/iTerm2_Dynamic.json</span><span style=color:#7f8c8d>\&#34;</span><span style=color:#7f8c8d>&#34;</span>)
+<span style=color:#00979d>end</span>
 
-<span style=color:#66d9ef>function</span> <span style=color:#a6e22e>displayWatcherCallback</span>()
-   <span style=color:#66d9ef>if</span> hasExternalMonitor() <span style=color:#66d9ef>then</span>
-      setIterm2Profile(<span style=color:#e6db74>&#34;iTerm2_Dynamic_12.json&#34;</span>)
-   <span style=color:#66d9ef>else</span>
-      setIterm2Profile(<span style=color:#e6db74>&#34;iTerm2_Dynamic_11.json&#34;</span>)
-   <span style=color:#66d9ef>end</span>
-<span style=color:#66d9ef>end</span>
+<span style=color:#00979d>function</span> <span style=color:#d35400>displayWatcherCallback</span>()
+   <span style=color:#00979d>if</span> <span style=color:#434f54>hasExternalMonitor</span>() <span style=color:#00979d>then</span>
+      <span style=color:#434f54>setIterm2Profile</span>(<span style=color:#7f8c8d>&#34;iTerm2_Dynamic_12.json&#34;</span>)
+   <span style=color:#00979d>else</span>
+      <span style=color:#434f54>setIterm2Profile</span>(<span style=color:#7f8c8d>&#34;iTerm2_Dynamic_11.json&#34;</span>)
+   <span style=color:#00979d>end</span>
+<span style=color:#00979d>end</span>
 
-<span style=color:#66d9ef>local</span> monitorWatcher <span style=color:#f92672>=</span> hs.screen.watcher.new(displayWatcherCallback)
-monitorWatcher:start()
+<span style=color:#728e00>local</span> <span style=color:#434f54>monitorWatcher</span> <span style=color:#728e00>=</span> <span style=color:#434f54>hs.screen</span>.<span style=color:#434f54>watcher.new</span>(<span style=color:#434f54>displayWatcherCallback</span>)
+<span style=color:#434f54>monitorWatcher</span>:<span style=color:#434f54>start</span>()
 </code></pre></div><p>This code expect that your store your dynamic profile files in <code>$HOME/Preferences/iTerm2/</code> and call them <code>iTerm2_Dynamic_11.json</code> and <code>iTerm2_Dynamic_12.json</code>.</p>
 <h2 id=emacs>Emacs</h2>
 <p>To achieve the same goal in Emacs I wrote some an​ elisp function to detect if there&rsquo;s an external display attached and change the font accordingly; then it&rsquo;s all a matter
 of running <code>(server-start)</code> and calling this function from <code>displayWatcherCallback()</code> in Hammerspoon.</p>
 <p>Hammerspoon code:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-lua data-lang=lua><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>tellEmacsToChangeFont</span>()
-   hs.execute(<span style=color:#e6db74>&#34;/usr/local/bin/emacsclient -e &#39;(set-the-right-font)&#39;&#34;</span>)
-<span style=color:#66d9ef>end</span>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-lua data-lang=lua><span style=color:#00979d>function</span> <span style=color:#d35400>tellEmacsToChangeFont</span>()
+   <span style=color:#434f54>hs.execute</span>(<span style=color:#7f8c8d>&#34;/usr/local/bin/emacsclient -e &#39;(set-the-right-font)&#39;&#34;</span>)
+<span style=color:#00979d>end</span>
 
-<span style=color:#66d9ef>function</span> <span style=color:#a6e22e>displayWatcherCallback</span>()
-   tellEmacsToChangeFont()
+<span style=color:#00979d>function</span> <span style=color:#d35400>displayWatcherCallback</span>()
+   <span style=color:#434f54>tellEmacsToChangeFont</span>()
 
-   <span style=color:#66d9ef>if</span> hasExternalMonitor() <span style=color:#66d9ef>then</span>
-      setIterm2Profile(<span style=color:#e6db74>&#34;iTerm2_Dynamic_12.json&#34;</span>)
-   <span style=color:#66d9ef>else</span>
-      setIterm2Profile(<span style=color:#e6db74>&#34;iTerm2_Dynamic_11.json&#34;</span>)
-   <span style=color:#66d9ef>end</span>
-<span style=color:#66d9ef>end</span>
+   <span style=color:#00979d>if</span> <span style=color:#434f54>hasExternalMonitor</span>() <span style=color:#00979d>then</span>
+      <span style=color:#434f54>setIterm2Profile</span>(<span style=color:#7f8c8d>&#34;iTerm2_Dynamic_12.json&#34;</span>)
+   <span style=color:#00979d>else</span>
+      <span style=color:#434f54>setIterm2Profile</span>(<span style=color:#7f8c8d>&#34;iTerm2_Dynamic_11.json&#34;</span>)
+   <span style=color:#00979d>end</span>
+<span style=color:#00979d>end</span>
 </code></pre></div><p>Emacs code:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-lisp data-lang=lisp>(defun set-the-right-font ()
-  <span style=color:#e6db74>&#34;Set the right font according to the connected displays&#34;</span>
-  (interactive)
-  (<span style=color:#66d9ef>let</span> ((monitors (shell-command-to-string <span style=color:#e6db74>&#34;system_profiler  SPDisplaysDataType | egrep &#39;^ {8}[^ ]&#39; | sed -e &#39;s/^ *//&#39; -e &#39;s/:$//&#39;&#34;</span>))
-        (hasExternal <span style=color:#66d9ef>nil</span>))
-    (dolist (monitor (split-string monitors <span style=color:#e6db74>&#34;\n&#34;</span>))
-      (when (<span style=color:#a6e22e>string=</span> monitor <span style=color:#e6db74>&#34;Thunderbolt Display&#34;</span>)
-        (<span style=color:#66d9ef>setq</span> hasExternal <span style=color:#66d9ef>t</span>)))
-    (<span style=color:#66d9ef>if</span> hasExternal
-        (set-default-font <span style=color:#e6db74>&#34;Fira Mono-12&#34;</span>)
-      (set-default-font <span style=color:#e6db74>&#34;Fira Mono-11&#34;</span>))))
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-lisp data-lang=lisp>(<span style=color:#728e00>defun</span> <span style=color:#434f54>set-the-right-font</span> ()
+  <span style=color:#7f8c8d>&#34;Set the right font according to the connected displays&#34;</span>
+  (<span style=color:#434f54>interactive</span>)
+  (<span style=color:#728e00>let</span> ((<span style=color:#434f54>monitors</span> (<span style=color:#434f54>shell-command-to-string</span> <span style=color:#7f8c8d>&#34;system_profiler  SPDisplaysDataType | egrep &#39;^ {8}[^ ]&#39; | sed -e &#39;s/^ *//&#39; -e &#39;s/:$//&#39;&#34;</span>))
+        (<span style=color:#434f54>hasExternal</span> <span style=color:#434f54>nil</span>))
+    (<span style=color:#728e00>dolist</span> (<span style=color:#434f54>monitor</span> (<span style=color:#434f54>split-string</span> <span style=color:#434f54>monitors</span> <span style=color:#7f8c8d>&#34;\n&#34;</span>))
+      (<span style=color:#728e00>when</span> (<span style=color:#d35400>string=</span> <span style=color:#434f54>monitor</span> <span style=color:#7f8c8d>&#34;Thunderbolt Display&#34;</span>)
+        (<span style=color:#728e00>setq</span> <span style=color:#434f54>hasExternal</span> <span style=color:#434f54>t</span>)))
+    (<span style=color:#728e00>if</span> <span style=color:#434f54>hasExternal</span>
+        (<span style=color:#434f54>set-default-font</span> <span style=color:#7f8c8d>&#34;Fira Mono-12&#34;</span>)
+      (<span style=color:#434f54>set-default-font</span> <span style=color:#7f8c8d>&#34;Fira Mono-11&#34;</span>))))
 </code></pre></div><p>I have to say that I&rsquo;m surprised that everything seems to be working well.</p>
 <h2 id=notes>Notes</h2>
 <ul>

@@ -93,25 +93,25 @@
 <h2 id=getting-it-inside-emacs>Getting it inside Emacs</h2>
 <p>In Emacs (24.3.1) this can be achieved using <code>outline-mode</code>, but a little bit of <em>elisp</em> is needed to achieve a behavior similar to vim&rsquo;s. A code snippet found in the <a href=http://www.emacswiki.org/emacs/OutlineMinorMode#toc8>Emacs wiki</a> let you specify a <em>folding marker</em> similar to vim, but it expect a <strong>level</strong> of folding, like <code>{{{1</code>.</p>
 <p>I adapted the code snippet to make the <strong>level</strong> optional, defaulting to <code>0</code>.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-elisp data-lang=elisp><span style=color:#75715e>;; code folding with vim compatibility</span>
-<span style=color:#75715e>;; https://raw.githubusercontent.com/yyetim/emacs-configuration/master/elisp/vim-fold.el</span>
-(defun set-vim-foldmarker (fmr)
-  <span style=color:#e6db74>&#34;Set Vim-type foldmarkers for the current buffer&#34;</span>
-  (interactive <span style=color:#e6db74>&#34;sSet local Vim foldmarker: &#34;</span>)
-  (if (<span style=color:#a6e22e>equal</span> fmr <span style=color:#e6db74>&#34;&#34;</span>)
-      (<span style=color:#a6e22e>message</span> <span style=color:#e6db74>&#34;Abort&#34;</span>)
-    (setq fmr (<span style=color:#a6e22e>regexp-quote</span> fmr))
-    (<span style=color:#a6e22e>set</span> (<span style=color:#a6e22e>make-local-variable</span> <span style=color:#e6db74>&#39;outline-regexp</span>)
-         (<span style=color:#a6e22e>concat</span> <span style=color:#e6db74>&#34;.*&#34;</span> fmr <span style=color:#e6db74>&#34;\\([0-9]+\\)?&#34;</span>))
-    (<span style=color:#a6e22e>set</span> (<span style=color:#a6e22e>make-local-variable</span> <span style=color:#e6db74>&#39;outline-level</span>)
-         <span style=color:#f92672>`</span>(lambda ()
-            (save-excursion
-              (<span style=color:#a6e22e>re-search-forward</span>
-               <span style=color:#f92672>,</span>(<span style=color:#a6e22e>concat</span> fmr <span style=color:#e6db74>&#34;\\([0-9]+\\)&#34;</span>) <span style=color:#66d9ef>nil</span> <span style=color:#66d9ef>t</span>)
-              (if (match-string <span style=color:#ae81ff>1</span>)
-                  (<span style=color:#a6e22e>string-to-number</span> (match-string <span style=color:#ae81ff>1</span>))
-                (<span style=color:#a6e22e>string-to-number</span> <span style=color:#e6db74>&#34;0&#34;</span>)))))))
-(global-set-key (kbd <span style=color:#e6db74>&#34;C-&lt;tab&gt;&#34;</span>) <span style=color:#e6db74>&#39;outline-toggle-children</span>)
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-elisp data-lang=elisp><span style=color:#95a5a6>;; code folding with vim compatibility</span>
+<span style=color:#95a5a6>;; https://raw.githubusercontent.com/yyetim/emacs-configuration/master/elisp/vim-fold.el</span>
+(<span style=color:#728e00>defun</span> <span style=color:#434f54>set-vim-foldmarker</span> (<span style=color:#434f54>fmr</span>)
+  <span style=color:#7f8c8d>&#34;Set Vim-type foldmarkers for the current buffer&#34;</span>
+  (<span style=color:#728e00>interactive</span> <span style=color:#7f8c8d>&#34;sSet local Vim foldmarker: &#34;</span>)
+  (<span style=color:#728e00>if</span> (<span style=color:#d35400>equal</span> <span style=color:#434f54>fmr</span> <span style=color:#7f8c8d>&#34;&#34;</span>)
+      (<span style=color:#d35400>message</span> <span style=color:#7f8c8d>&#34;Abort&#34;</span>)
+    (<span style=color:#728e00>setq</span> <span style=color:#434f54>fmr</span> (<span style=color:#d35400>regexp-quote</span> <span style=color:#434f54>fmr</span>))
+    (<span style=color:#d35400>set</span> (<span style=color:#d35400>make-local-variable</span> <span style=color:#7f8c8d>&#39;outline-regexp</span>)
+         (<span style=color:#d35400>concat</span> <span style=color:#7f8c8d>&#34;.*&#34;</span> <span style=color:#434f54>fmr</span> <span style=color:#7f8c8d>&#34;\\([0-9]+\\)?&#34;</span>))
+    (<span style=color:#d35400>set</span> (<span style=color:#d35400>make-local-variable</span> <span style=color:#7f8c8d>&#39;outline-level</span>)
+         <span style=color:#728e00>`</span>(<span style=color:#728e00>lambda</span> ()
+            (<span style=color:#728e00>save-excursion</span>
+              (<span style=color:#d35400>re-search-forward</span>
+               <span style=color:#728e00>,</span>(<span style=color:#d35400>concat</span> <span style=color:#434f54>fmr</span> <span style=color:#7f8c8d>&#34;\\([0-9]+\\)&#34;</span>) <span style=color:#434f54>nil</span> <span style=color:#434f54>t</span>)
+              (<span style=color:#728e00>if</span> (<span style=color:#434f54>match-string</span> <span style=color:#8a7b52>1</span>)
+                  (<span style=color:#d35400>string-to-number</span> (<span style=color:#434f54>match-string</span> <span style=color:#8a7b52>1</span>))
+                (<span style=color:#d35400>string-to-number</span> <span style=color:#7f8c8d>&#34;0&#34;</span>)))))))
+(<span style=color:#434f54>global-set-key</span> (<span style=color:#434f54>kbd</span> <span style=color:#7f8c8d>&#34;C-&lt;tab&gt;&#34;</span>) <span style=color:#7f8c8d>&#39;outline-toggle-children</span>)
 </code></pre></div>
 </div>
 <footer class=post__footer>

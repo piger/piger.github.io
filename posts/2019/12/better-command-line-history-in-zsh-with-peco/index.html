@@ -85,23 +85,23 @@ allows you to search and reuse previous commands from your shell history; unfort
 brings value.</p>
 <p>By adding this short snippet of code to your <code>~/.zshrc</code> you can use <code>peco</code> to navigate the history
 of your shell:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#66d9ef>function</span> exists<span style=color:#f92672>()</span> <span style=color:#f92672>{</span> which $1 &amp;&gt; /dev/null <span style=color:#f92672>}</span>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#728e00>function</span> exists<span style=color:#728e00>()</span> <span style=color:#728e00>{</span> which <span style=color:#434f54>$1</span> &amp;&gt; /dev/null <span style=color:#728e00>}</span>
 
-<span style=color:#66d9ef>function</span> peco_select_history<span style=color:#f92672>()</span> <span style=color:#f92672>{</span>
-    local tac
-    exists gtac <span style=color:#f92672>&amp;&amp;</span> tac<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;gtac&#34;</span> <span style=color:#f92672>||</span> <span style=color:#f92672>{</span> exists tac <span style=color:#f92672>&amp;&amp;</span> tac<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;tac&#34;</span> <span style=color:#f92672>||</span> <span style=color:#f92672>{</span> tac<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;tail -r&#34;</span> <span style=color:#f92672>}</span> <span style=color:#f92672>}</span>
-    BUFFER<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>fc -l -n <span style=color:#ae81ff>1</span> | eval $tac | peco --layout<span style=color:#f92672>=</span>bottom-up --query <span style=color:#e6db74>&#34;</span>$LBUFFER<span style=color:#e6db74>&#34;</span><span style=color:#66d9ef>)</span>
-    CURSOR<span style=color:#f92672>=</span>$#BUFFER         <span style=color:#75715e># move cursor</span>
-    zle -R -c               <span style=color:#75715e># refresh</span>
-<span style=color:#f92672>}</span>
+<span style=color:#728e00>function</span> peco_select_history<span style=color:#728e00>()</span> <span style=color:#728e00>{</span>
+    <span style=color:#728e00>local</span> tac
+    exists gtac <span style=color:#728e00>&amp;&amp;</span> <span style=color:#434f54>tac</span><span style=color:#728e00>=</span><span style=color:#7f8c8d>&#34;gtac&#34;</span> <span style=color:#728e00>||</span> <span style=color:#728e00>{</span> exists tac <span style=color:#728e00>&amp;&amp;</span> <span style=color:#434f54>tac</span><span style=color:#728e00>=</span><span style=color:#7f8c8d>&#34;tac&#34;</span> <span style=color:#728e00>||</span> <span style=color:#728e00>{</span> <span style=color:#434f54>tac</span><span style=color:#728e00>=</span><span style=color:#7f8c8d>&#34;tail -r&#34;</span> <span style=color:#728e00>}</span> <span style=color:#728e00>}</span>
+    <span style=color:#434f54>BUFFER</span><span style=color:#728e00>=</span><span style=color:#728e00>$(</span><span style=color:#728e00>fc</span> -l -n <span style=color:#8a7b52>1</span> | <span style=color:#728e00>eval</span> <span style=color:#434f54>$tac</span> | peco --layout<span style=color:#728e00>=</span>bottom-up --query <span style=color:#7f8c8d>&#34;</span><span style=color:#434f54>$LBUFFER</span><span style=color:#7f8c8d>&#34;</span><span style=color:#728e00>)</span>
+    <span style=color:#434f54>CURSOR</span><span style=color:#728e00>=</span><span style=color:#434f54>$#</span>BUFFER         <span style=color:#95a5a6># move cursor</span>
+    zle -R -c               <span style=color:#95a5a6># refresh</span>
+<span style=color:#728e00>}</span>
 
 zle -N peco_select_history
-bindkey <span style=color:#e6db74>&#39;^R&#39;</span> peco_select_history
+bindkey <span style=color:#7f8c8d>&#39;^R&#39;</span> peco_select_history
 </code></pre></div><p>This is how it looks like when I press <code>CTRL-R</code> and type &ldquo;man&rdquo;:</p>
 <p><img src=/images/zsh-peco.png alt=screenshot></p>
 <p>This become really useful when you configure zsh to have a huge history size:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>SAVEHIST<span style=color:#f92672>=</span><span style=color:#ae81ff>10000</span>
-HISTSIZE<span style=color:#f92672>=</span><span style=color:#ae81ff>12000</span>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#434f54>SAVEHIST</span><span style=color:#728e00>=</span><span style=color:#8a7b52>10000</span>
+<span style=color:#434f54>HISTSIZE</span><span style=color:#728e00>=</span><span style=color:#8a7b52>12000</span>
 </code></pre></div><p>This is really handy for command that you type over and over and you can&rsquo;t really script, like
 pushing Chef files to the chef server.</p>
 </div>

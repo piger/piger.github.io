@@ -77,82 +77,82 @@
 <p>The following zsh code wraps the ssh command to grab the remote hostname, shorten it as needed and
 use it to rename the current tmux or iTerm2 window or pane. It&rsquo;s really handy when you connect to
 several different servers at once.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#75715e># ssh wrapper function to set tmux window (pane?) title</span>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#95a5a6># ssh wrapper function to set tmux window (pane?) title</span>
 
-<span style=color:#75715e># bypass this function if stdout is not a terminal, to avoid messing up</span>
-<span style=color:#75715e># the output with our printf() calls.</span>
-<span style=color:#f92672>[[</span> -t <span style=color:#ae81ff>1</span> <span style=color:#f92672>]]</span> <span style=color:#f92672>||</span> exec command ssh $@
+<span style=color:#95a5a6># bypass this function if stdout is not a terminal, to avoid messing up</span>
+<span style=color:#95a5a6># the output with our printf() calls.</span>
+<span style=color:#728e00>[[</span> -t <span style=color:#8a7b52>1</span> <span style=color:#728e00>]]</span> <span style=color:#728e00>||</span> <span style=color:#728e00>exec</span> <span style=color:#728e00>command</span> ssh <span style=color:#434f54>$@</span>
 
-local prev_window_name<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>tmux display-message -p <span style=color:#e6db74>&#34;#{window_name}&#34;</span><span style=color:#66d9ef>)</span>
-local prev_pane_title<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>tmux display-message -p <span style=color:#e6db74>&#34;#{pane_title}&#34;</span><span style=color:#66d9ef>)</span>
+<span style=color:#728e00>local</span> <span style=color:#434f54>prev_window_name</span><span style=color:#728e00>=</span><span style=color:#728e00>$(</span>tmux display-message -p <span style=color:#7f8c8d>&#34;#{window_name}&#34;</span><span style=color:#728e00>)</span>
+<span style=color:#728e00>local</span> <span style=color:#434f54>prev_pane_title</span><span style=color:#728e00>=</span><span style=color:#728e00>$(</span>tmux display-message -p <span style=color:#7f8c8d>&#34;#{pane_title}&#34;</span><span style=color:#728e00>)</span>
 
-local win_escape_start<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;\033k&#34;</span>
-local pane_escape_start<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;\033]2;&#34;</span>
-local escape_end<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;\033\\&#34;</span>
+<span style=color:#728e00>local</span> <span style=color:#434f54>win_escape_start</span><span style=color:#728e00>=</span><span style=color:#7f8c8d>&#34;\033k&#34;</span>
+<span style=color:#728e00>local</span> <span style=color:#434f54>pane_escape_start</span><span style=color:#728e00>=</span><span style=color:#7f8c8d>&#34;\033]2;&#34;</span>
+<span style=color:#728e00>local</span> <span style=color:#434f54>escape_end</span><span style=color:#728e00>=</span><span style=color:#7f8c8d>&#34;\033\\&#34;</span>
 
-set_pane_title<span style=color:#f92672>()</span> <span style=color:#f92672>{</span>
-    printf <span style=color:#e6db74>&#34;</span>$pane_escape_start$1$escape_end<span style=color:#e6db74>&#34;</span>
-<span style=color:#f92672>}</span>
+set_pane_title<span style=color:#728e00>()</span> <span style=color:#728e00>{</span>
+    <span style=color:#728e00>printf</span> <span style=color:#7f8c8d>&#34;</span><span style=color:#434f54>$pane_escape_start$1$escape_end</span><span style=color:#7f8c8d>&#34;</span>
+<span style=color:#728e00>}</span>
 
-set_window_title<span style=color:#f92672>()</span> <span style=color:#f92672>{</span>
-    printf <span style=color:#e6db74>&#34;</span>$win_escape_start$1$escape_end<span style=color:#e6db74>&#34;</span>
-<span style=color:#f92672>}</span>
+set_window_title<span style=color:#728e00>()</span> <span style=color:#728e00>{</span>
+    <span style=color:#728e00>printf</span> <span style=color:#7f8c8d>&#34;</span><span style=color:#434f54>$win_escape_start$1$escape_end</span><span style=color:#7f8c8d>&#34;</span>
+<span style=color:#728e00>}</span>
 
-local hostname<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>ssh -G <span style=color:#e6db74>&#34;</span>$@<span style=color:#e6db74>&#34;</span> | awk <span style=color:#e6db74>&#39;NR &gt; 2 { exit } /^hostname/ { print $2 }&#39;</span><span style=color:#66d9ef>)</span>
+<span style=color:#728e00>local</span> <span style=color:#434f54>hostname</span><span style=color:#728e00>=</span><span style=color:#728e00>$(</span>ssh -G <span style=color:#7f8c8d>&#34;</span><span style=color:#434f54>$@</span><span style=color:#7f8c8d>&#34;</span> | awk <span style=color:#7f8c8d>&#39;NR &gt; 2 { exit } /^hostname/ { print $2 }&#39;</span><span style=color:#728e00>)</span>
 
-<span style=color:#66d9ef>if</span> <span style=color:#f92672>[[</span> -z $hostname <span style=color:#f92672>]]</span>; <span style=color:#66d9ef>then</span>
-    command ssh $@
-<span style=color:#66d9ef>else</span>
-    <span style=color:#75715e># try to shorten the hostname</span>
+<span style=color:#728e00>if</span> <span style=color:#728e00>[[</span> -z <span style=color:#434f54>$hostname</span> <span style=color:#728e00>]]</span>; <span style=color:#728e00>then</span>
+    <span style=color:#728e00>command</span> ssh <span style=color:#434f54>$@</span>
+<span style=color:#728e00>else</span>
+    <span style=color:#95a5a6># try to shorten the hostname</span>
 
-    <span style=color:#75715e># 1) split the hostname on &#34;.&#34;</span>
-    local parts<span style=color:#f92672>=(</span><span style=color:#e6db74>${</span>(s:.:)hostname<span style=color:#e6db74>}</span><span style=color:#f92672>)</span>
-    local short_name
+    <span style=color:#95a5a6># 1) split the hostname on &#34;.&#34;</span>
+    <span style=color:#728e00>local</span> <span style=color:#434f54>parts</span><span style=color:#728e00>=(</span><span style=color:#7f8c8d>${</span>(s:.:)hostname<span style=color:#7f8c8d>}</span><span style=color:#728e00>)</span>
+    <span style=color:#728e00>local</span> short_name
 
-    <span style=color:#75715e># 2) if the parts of the hostname are less than 3 (e.g. mail.example.com -&gt; 3 parts)</span>
-    <span style=color:#75715e># use the first part only (e.g. &#34;mail&#34;)</span>
-    <span style=color:#66d9ef>if</span> <span style=color:#f92672>((</span> $#parts &lt;<span style=color:#f92672>=</span> <span style=color:#ae81ff>3</span> <span style=color:#f92672>))</span>; <span style=color:#66d9ef>then</span>
-        short_name<span style=color:#f92672>=</span><span style=color:#e6db74>${</span>parts[1]<span style=color:#e6db74>}</span>
-    <span style=color:#66d9ef>else</span>
-        <span style=color:#75715e># othewrise show 2/3 of the hostname</span>
-        local fraction<span style=color:#f92672>=</span><span style=color:#66d9ef>$((</span> $#parts <span style=color:#f92672>/</span> <span style=color:#ae81ff>3</span> <span style=color:#f92672>*</span> <span style=color:#ae81ff>2</span> <span style=color:#66d9ef>))</span>
-        short_name<span style=color:#f92672>=</span><span style=color:#e6db74>${</span>(j:.:)parts[1,$fraction]<span style=color:#e6db74>}</span>
-    <span style=color:#66d9ef>fi</span>
-    <span style=color:#75715e># Set window name and pane title when there&#39;s only 1 pane (i.e. the whole window),</span>
-    <span style=color:#75715e># otherwise set just the pane title.</span>
-    <span style=color:#66d9ef>if</span> <span style=color:#f92672>[[</span> <span style=color:#66d9ef>$(</span>tmux display-message -p <span style=color:#e6db74>&#34;#{window_panes}&#34;</span><span style=color:#66d9ef>)</span> <span style=color:#f92672>==</span> <span style=color:#ae81ff>1</span> <span style=color:#f92672>]]</span>; <span style=color:#66d9ef>then</span>
-        <span style=color:#75715e># Use a shortened version of the hostname for the window title</span>
-        tmux rename-window <span style=color:#e6db74>&#34;</span>$short_name<span style=color:#e6db74>&#34;</span>
-        set_pane_title $hostname
-    <span style=color:#66d9ef>else</span>
-        set_pane_title $hostname
-    <span style=color:#66d9ef>fi</span>
-    command ssh $@
+    <span style=color:#95a5a6># 2) if the parts of the hostname are less than 3 (e.g. mail.example.com -&gt; 3 parts)</span>
+    <span style=color:#95a5a6># use the first part only (e.g. &#34;mail&#34;)</span>
+    <span style=color:#728e00>if</span> <span style=color:#728e00>((</span> <span style=color:#434f54>$#</span>parts &lt;<span style=color:#728e00>=</span> <span style=color:#8a7b52>3</span> <span style=color:#728e00>))</span>; <span style=color:#728e00>then</span>
+        <span style=color:#434f54>short_name</span><span style=color:#728e00>=</span><span style=color:#7f8c8d>${</span><span style=color:#434f54>parts</span>[1]<span style=color:#7f8c8d>}</span>
+    <span style=color:#728e00>else</span>
+        <span style=color:#95a5a6># othewrise show 2/3 of the hostname</span>
+        <span style=color:#728e00>local</span> <span style=color:#434f54>fraction</span><span style=color:#728e00>=</span><span style=color:#728e00>$((</span> <span style=color:#434f54>$#</span>parts <span style=color:#728e00>/</span> <span style=color:#8a7b52>3</span> <span style=color:#728e00>*</span> <span style=color:#8a7b52>2</span> <span style=color:#728e00>))</span>
+        <span style=color:#434f54>short_name</span><span style=color:#728e00>=</span><span style=color:#7f8c8d>${</span>(j:.:)parts[1,<span style=color:#434f54>$fraction</span>]<span style=color:#7f8c8d>}</span>
+    <span style=color:#728e00>fi</span>
+    <span style=color:#95a5a6># Set window name and pane title when there&#39;s only 1 pane (i.e. the whole window),</span>
+    <span style=color:#95a5a6># otherwise set just the pane title.</span>
+    <span style=color:#728e00>if</span> <span style=color:#728e00>[[</span> <span style=color:#728e00>$(</span>tmux display-message -p <span style=color:#7f8c8d>&#34;#{window_panes}&#34;</span><span style=color:#728e00>)</span> <span style=color:#728e00>==</span> <span style=color:#8a7b52>1</span> <span style=color:#728e00>]]</span>; <span style=color:#728e00>then</span>
+        <span style=color:#95a5a6># Use a shortened version of the hostname for the window title</span>
+        tmux rename-window <span style=color:#7f8c8d>&#34;</span><span style=color:#434f54>$short_name</span><span style=color:#7f8c8d>&#34;</span>
+        set_pane_title <span style=color:#434f54>$hostname</span>
+    <span style=color:#728e00>else</span>
+        set_pane_title <span style=color:#434f54>$hostname</span>
+    <span style=color:#728e00>fi</span>
+    <span style=color:#728e00>command</span> ssh <span style=color:#434f54>$@</span>
 
-    <span style=color:#75715e># Restore the old window and pane titles after ssh exits.</span>
-    <span style=color:#66d9ef>if</span> <span style=color:#f92672>[[</span> <span style=color:#66d9ef>$(</span>tmux display-message -p <span style=color:#e6db74>&#34;#{window_panes}&#34;</span><span style=color:#66d9ef>)</span> <span style=color:#f92672>==</span> <span style=color:#ae81ff>1</span> <span style=color:#f92672>]]</span>; <span style=color:#66d9ef>then</span>
-        tmux rename-window <span style=color:#e6db74>&#34;</span>$prev_window_name<span style=color:#e6db74>&#34;</span>
+    <span style=color:#95a5a6># Restore the old window and pane titles after ssh exits.</span>
+    <span style=color:#728e00>if</span> <span style=color:#728e00>[[</span> <span style=color:#728e00>$(</span>tmux display-message -p <span style=color:#7f8c8d>&#34;#{window_panes}&#34;</span><span style=color:#728e00>)</span> <span style=color:#728e00>==</span> <span style=color:#8a7b52>1</span> <span style=color:#728e00>]]</span>; <span style=color:#728e00>then</span>
+        tmux rename-window <span style=color:#7f8c8d>&#34;</span><span style=color:#434f54>$prev_window_name</span><span style=color:#7f8c8d>&#34;</span>
         tmux setw automatic-rename on
-    <span style=color:#66d9ef>fi</span>
-    set_pane_title $prev_pane_title
-<span style=color:#66d9ef>fi</span>
+    <span style=color:#728e00>fi</span>
+    set_pane_title <span style=color:#434f54>$prev_pane_title</span>
+<span style=color:#728e00>fi</span>
 </code></pre></div><p>A really nice trick that I found somewhere and modified to my own needs is used to get the canonical
 hostname of the remote server I&rsquo;m connecting to using OpenSSH:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>local hostname<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>ssh -G <span style=color:#e6db74>&#34;</span>$@<span style=color:#e6db74>&#34;</span> | awk <span style=color:#e6db74>&#39;NR &gt; 2 { exit } /^hostname/ { print $2 }&#39;</span><span style=color:#66d9ef>)</span>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#728e00>local</span> <span style=color:#434f54>hostname</span><span style=color:#728e00>=</span><span style=color:#728e00>$(</span>ssh -G <span style=color:#7f8c8d>&#34;</span><span style=color:#434f54>$@</span><span style=color:#7f8c8d>&#34;</span> | awk <span style=color:#7f8c8d>&#39;NR &gt; 2 { exit } /^hostname/ { print $2 }&#39;</span><span style=color:#728e00>)</span>
 </code></pre></div><p>Running <code>ssh -G &lt;hostname></code> will print the full OpenSSH configuration for that hostname, which
 includes a single <code>Hostname &lt;address></code> line containing the actual hostname of the remote server (in
 casey you&rsquo;re using aliases); the <code>awk</code> incantation will match the line starting with <code>hostname</code>,
 print the second element of that line and exit after the 2nd line of output (this is because the
 <code>hostname</code> statement has been, so far, the second line of the output).</p>
 <p>I put this file in one of my zsh <code>$fpath</code> directories and autoload it from <code>~/.zshrc</code>:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>typeset -U fpath
-fpath<span style=color:#f92672>+=</span>~/Preferences/zsh/functions
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#728e00>typeset</span> -U fpath
+<span style=color:#434f54>fpath</span><span style=color:#728e00>+=</span>~/Preferences/zsh/functions
 autoload -Uz ssh
 </code></pre></div><p>To do the same thing when running iTerm2 without tmux, you can remove all the lines invoking the
 <code>tmux</code> command and replace the set window title with something like:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>set_window_title<span style=color:#f92672>()</span> <span style=color:#f92672>{</span>
-    echo -ne <span style=color:#e6db74>&#34;\033]0;&#34;</span>$1<span style=color:#e6db74>&#34;\007&#34;</span>
-<span style=color:#f92672>}</span>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>set_window_title<span style=color:#728e00>()</span> <span style=color:#728e00>{</span>
+    <span style=color:#728e00>echo</span> -ne <span style=color:#7f8c8d>&#34;\033]0;&#34;</span><span style=color:#434f54>$1</span><span style=color:#7f8c8d>&#34;\007&#34;</span>
+<span style=color:#728e00>}</span>
 </code></pre></div><p>And to restore the default window title when ssh exits, you can just invoke <code>set_window_title</code>
 passing an empty string, like <code>set_window_title ""</code>.</p>
 <p><a href=https://github.com/piger/Preferences/blob/master/zsh/functions/ssh>This code</a> can also be found on

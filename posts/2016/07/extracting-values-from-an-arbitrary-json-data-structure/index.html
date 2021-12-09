@@ -74,11 +74,11 @@
 </header>
 <div class="content post__content clearfix">
 <p>A friend of mine came to me for help with a Python programming problem: he needed a way to extract some values from a JSON data structure by specifying the full <em>path</em> of each value; for example, given the following data structure:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
-  <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;cavallo&#34;</span>,
-  <span style=color:#f92672>&#34;attributes&#34;</span>: {
-    <span style=color:#f92672>&#34;good&#34;</span>: <span style=color:#e6db74>&#34;goloso&#34;</span>,
-    <span style=color:#f92672>&#34;bad&#34;</span>: <span style=color:#e6db74>&#34;dispettoso&#34;</span>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
+  <span style=color:#434f54>&#34;name&#34;</span>: <span style=color:#7f8c8d>&#34;cavallo&#34;</span>,
+  <span style=color:#434f54>&#34;attributes&#34;</span>: {
+    <span style=color:#434f54>&#34;good&#34;</span>: <span style=color:#7f8c8d>&#34;goloso&#34;</span>,
+    <span style=color:#434f54>&#34;bad&#34;</span>: <span style=color:#7f8c8d>&#34;dispettoso&#34;</span>
   }
 }
 </code></pre></div><p>he wanted to be able to extract <code>name</code> and <code>attributes.good</code>. One of my friend&rsquo;s requirements was that the code should read the list of <em>paths</em> from an external file, so that he could decouple code from configuration.</p>

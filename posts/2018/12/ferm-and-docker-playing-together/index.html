@@ -90,52 +90,52 @@
 dpkg -i ferm_2.4-1_all.deb
 </code></pre><p><del>Two</del> Three very simple shell scripts are used to replicate the iptables rules created by Docker once your containers are running:</p>
 <p><code>/usr/local/bin/ferm_docker_filter.sh</code></p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#75715e>#!/bin/bash
-</span><span style=color:#75715e></span>
-set -e
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#728e00>#!/bin/bash
+</span><span style=color:#728e00></span>
+<span style=color:#728e00>set</span> -e
 
-<span style=color:#75715e># table filter</span>
-<span style=color:#75715e># chain FORWARD</span>
-<span style=color:#66d9ef>for</span> address in <span style=color:#66d9ef>$(</span>docker network ls -f driver<span style=color:#f92672>=</span>bridge --format <span style=color:#e6db74>&#39;{{ .ID }}&#39;</span> | xargs -n1 docker network inspect -f <span style=color:#e6db74>&#39;{{range .IPAM.Config }}{{ .Gateway }}{{ end }}&#39;</span><span style=color:#66d9ef>)</span>; <span style=color:#66d9ef>do</span>
-    ifname<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>ip -o a l | grep $address | awk <span style=color:#e6db74>&#39;{ print $2 }&#39;</span><span style=color:#66d9ef>)</span>
-    cat <span style=color:#e6db74>&lt;&lt;EOF
-</span><span style=color:#e6db74>outerface $ifname {
-</span><span style=color:#e6db74>  mod conntrack ctstate (RELATED ESTABLISHED) ACCEPT;
-</span><span style=color:#e6db74>  jump DOCKER;
-</span><span style=color:#e6db74>}
-</span><span style=color:#e6db74>interface $ifname {
-</span><span style=color:#e6db74>  outerface ! $ifname ACCEPT;
-</span><span style=color:#e6db74>  outerface $ifname ACCEPT;
-</span><span style=color:#e6db74>}
-</span><span style=color:#e6db74>EOF</span>
-<span style=color:#66d9ef>done</span>
+<span style=color:#95a5a6># table filter</span>
+<span style=color:#95a5a6># chain FORWARD</span>
+<span style=color:#728e00>for</span> address in <span style=color:#728e00>$(</span>docker network ls -f <span style=color:#434f54>driver</span><span style=color:#728e00>=</span>bridge --format <span style=color:#7f8c8d>&#39;{{ .ID }}&#39;</span> | xargs -n1 docker network inspect -f <span style=color:#7f8c8d>&#39;{{range .IPAM.Config }}{{ .Gateway }}{{ end }}&#39;</span><span style=color:#728e00>)</span>; <span style=color:#728e00>do</span>
+    <span style=color:#434f54>ifname</span><span style=color:#728e00>=</span><span style=color:#728e00>$(</span>ip -o a l | grep <span style=color:#434f54>$address</span> | awk <span style=color:#7f8c8d>&#39;{ print $2 }&#39;</span><span style=color:#728e00>)</span>
+    cat <span style=color:#7f8c8d>&lt;&lt;EOF
+</span><span style=color:#7f8c8d>outerface $ifname {
+</span><span style=color:#7f8c8d>  mod conntrack ctstate (RELATED ESTABLISHED) ACCEPT;
+</span><span style=color:#7f8c8d>  jump DOCKER;
+</span><span style=color:#7f8c8d>}
+</span><span style=color:#7f8c8d>interface $ifname {
+</span><span style=color:#7f8c8d>  outerface ! $ifname ACCEPT;
+</span><span style=color:#7f8c8d>  outerface $ifname ACCEPT;
+</span><span style=color:#7f8c8d>}
+</span><span style=color:#7f8c8d>EOF</span>
+<span style=color:#728e00>done</span>
 </code></pre></div><p><code>/usr/local/bin/ferm_docker_nat.sh</code></p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#75715e>#!/bin/bash
-</span><span style=color:#75715e></span>
-set -e
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#728e00>#!/bin/bash
+</span><span style=color:#728e00></span>
+<span style=color:#728e00>set</span> -e
 
-<span style=color:#75715e># table nat</span>
-<span style=color:#75715e># chain POSTROUTING</span>
-<span style=color:#66d9ef>for</span> address in <span style=color:#66d9ef>$(</span>docker network ls -f driver<span style=color:#f92672>=</span>bridge --format <span style=color:#e6db74>&#39;{{ .ID }}&#39;</span> | xargs -n1 docker network inspect -f <span style=color:#e6db74>&#39;{{range .IPAM.Config }}{{ .Gateway }}{{ end }}&#39;</span><span style=color:#66d9ef>)</span>; <span style=color:#66d9ef>do</span>
-    ifname<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>ip -o a l | grep $address | awk <span style=color:#e6db74>&#39;{ print $2 }&#39;</span><span style=color:#66d9ef>)</span>
-    cat <span style=color:#e6db74>&lt;&lt;EOF
-</span><span style=color:#e6db74>saddr ${address}/16 outerface ! $ifname MASQUERADE;
-</span><span style=color:#e6db74>EOF</span>
-<span style=color:#66d9ef>done</span>
+<span style=color:#95a5a6># table nat</span>
+<span style=color:#95a5a6># chain POSTROUTING</span>
+<span style=color:#728e00>for</span> address in <span style=color:#728e00>$(</span>docker network ls -f <span style=color:#434f54>driver</span><span style=color:#728e00>=</span>bridge --format <span style=color:#7f8c8d>&#39;{{ .ID }}&#39;</span> | xargs -n1 docker network inspect -f <span style=color:#7f8c8d>&#39;{{range .IPAM.Config }}{{ .Gateway }}{{ end }}&#39;</span><span style=color:#728e00>)</span>; <span style=color:#728e00>do</span>
+    <span style=color:#434f54>ifname</span><span style=color:#728e00>=</span><span style=color:#728e00>$(</span>ip -o a l | grep <span style=color:#434f54>$address</span> | awk <span style=color:#7f8c8d>&#39;{ print $2 }&#39;</span><span style=color:#728e00>)</span>
+    cat <span style=color:#7f8c8d>&lt;&lt;EOF
+</span><span style=color:#7f8c8d>saddr ${address}/16 outerface ! $ifname MASQUERADE;
+</span><span style=color:#7f8c8d>EOF</span>
+<span style=color:#728e00>done</span>
 </code></pre></div><p><code>/usr/local/bin/ferm_docker_ports.sh</code></p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#75715e>#!/bin/bash
-</span><span style=color:#75715e></span>
-<span style=color:#75715e># can&#39;t use &#34;set -e&#34;, some containers might not have ports forwarded and I&#39;m too lazy to filter them out.</span>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#728e00>#!/bin/bash
+</span><span style=color:#728e00></span>
+<span style=color:#95a5a6># can&#39;t use &#34;set -e&#34;, some containers might not have ports forwarded and I&#39;m too lazy to filter them out.</span>
 
-<span style=color:#75715e># Example rule to create:</span>
-<span style=color:#75715e># -A POSTROUTING -s 172.22.0.2/32 -d 172.22.0.2/32 -p tcp -m tcp --dport 32469 -j MASQUERADE</span>
+<span style=color:#95a5a6># Example rule to create:</span>
+<span style=color:#95a5a6># -A POSTROUTING -s 172.22.0.2/32 -d 172.22.0.2/32 -p tcp -m tcp --dport 32469 -j MASQUERADE</span>
 
-docker ps | awk <span style=color:#e6db74>&#39;$0 !~ /^CONTAINER/ { print $1 &#34; &#34; $2}&#39;</span> | <span style=color:#66d9ef>while</span> read -r id name; <span style=color:#66d9ef>do</span>
-    ip<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>docker inspect --format<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}&#39;</span> $id<span style=color:#66d9ef>)</span>
-    docker inspect --format<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;{{json .NetworkSettings.Ports}}&#39;</span> $id | jq -r <span style=color:#e6db74>&#39;to_entries[] | (.key | split(&#34;/&#34;)[0]) as $sport | (.key | split(&#34;/&#34;)[1]) as $proto | $sport + &#34; &#34; + $proto + &#34; &#34; + .value[].HostPort&#39;</span> | <span style=color:#66d9ef>while</span> read -r sport proto dport; <span style=color:#66d9ef>do</span>
-        echo <span style=color:#e6db74>&#34;saddr </span><span style=color:#e6db74>${</span>ip<span style=color:#e6db74>}</span><span style=color:#e6db74>/32 daddr </span><span style=color:#e6db74>${</span>ip<span style=color:#e6db74>}</span><span style=color:#e6db74>/32 proto </span>$proto<span style=color:#e6db74> dport </span>$dport<span style=color:#e6db74> mod comment comment \&#34;</span><span style=color:#e6db74>${</span>name<span style=color:#e6db74>}</span><span style=color:#e6db74>\&#34; MASQUERADE;&#34;</span>
-    <span style=color:#66d9ef>done</span>
-<span style=color:#66d9ef>done</span>
+docker ps | awk <span style=color:#7f8c8d>&#39;$0 !~ /^CONTAINER/ { print $1 &#34; &#34; $2}&#39;</span> | <span style=color:#728e00>while</span> <span style=color:#728e00>read</span> -r id name; <span style=color:#728e00>do</span>
+    <span style=color:#434f54>ip</span><span style=color:#728e00>=</span><span style=color:#728e00>$(</span>docker inspect --format<span style=color:#728e00>=</span><span style=color:#7f8c8d>&#39;{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}&#39;</span> <span style=color:#434f54>$id</span><span style=color:#728e00>)</span>
+    docker inspect --format<span style=color:#728e00>=</span><span style=color:#7f8c8d>&#39;{{json .NetworkSettings.Ports}}&#39;</span> <span style=color:#434f54>$id</span> | jq -r <span style=color:#7f8c8d>&#39;to_entries[] | (.key | split(&#34;/&#34;)[0]) as $sport | (.key | split(&#34;/&#34;)[1]) as $proto | $sport + &#34; &#34; + $proto + &#34; &#34; + .value[].HostPort&#39;</span> | <span style=color:#728e00>while</span> <span style=color:#728e00>read</span> -r sport proto dport; <span style=color:#728e00>do</span>
+        <span style=color:#728e00>echo</span> <span style=color:#7f8c8d>&#34;saddr </span><span style=color:#7f8c8d>${</span><span style=color:#434f54>ip</span><span style=color:#7f8c8d>}</span><span style=color:#7f8c8d>/32 daddr </span><span style=color:#7f8c8d>${</span><span style=color:#434f54>ip</span><span style=color:#7f8c8d>}</span><span style=color:#7f8c8d>/32 proto </span><span style=color:#434f54>$proto</span><span style=color:#7f8c8d> dport </span><span style=color:#434f54>$dport</span><span style=color:#7f8c8d> mod comment comment \&#34;</span><span style=color:#7f8c8d>${</span><span style=color:#434f54>name</span><span style=color:#7f8c8d>}</span><span style=color:#7f8c8d>\&#34; MASQUERADE;&#34;</span>
+    <span style=color:#728e00>done</span>
+<span style=color:#728e00>done</span>
 </code></pre></div><p>My <code>ferm.conf</code> contains the configuration to create the basic set of rules required by Docker and then uses those two scripts to create the dynamic rules needed by my containers; please keep in mind that Docker is very flexible and your setup could be different than mine.</p>
 <pre tabindex=0><code>
 domain ip {
