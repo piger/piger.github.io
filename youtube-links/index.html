@@ -126,7 +126,11 @@ Electronics I enjoy watching people that talk about electronics, dissect hardwar
 <h4 class=widget__title>Recent Posts</h4>
 <div class=widget__content>
 <ul class=widget__list>
-<li class=widget__item><a class=widget__link href=/posts/my-first-post/>My First Post</a></li>
+<li class=widget__item><a class=widget__link href=/posts/2019/12/better-command-line-history-in-zsh-with-peco/>Better command line history in zsh with peco</a></li>
+<li class=widget__item><a class=widget__link href=/posts/2019/12/rename-the-tmux-or-iterm2-window-when-connecting-to-a-remote-host/>Rename the tmux or iTerm2 window when connecting to a remote host</a></li>
+<li class=widget__item><a class=widget__link href=/posts/2019/12/wireguard-using-a-secondary-egress-ip/>Wireguard using a secondary egress IP</a></li>
+<li class=widget__item><a class=widget__link href=/posts/2018/12/ferm-and-docker-playing-together/>ferm and docker playing together</a></li>
+<li class=widget__item><a class=widget__link href=/posts/2018/03/yubikey-and-gpg/>YubiKey and GPG</a></li>
 </ul>
 </div>
 </div>
@@ -135,17 +139,53 @@ Electronics I enjoy watching people that talk about electronics, dissect hardwar
 <div class=widget__content>
 <ul class=widget__list>
 <li class=widget__item>
-<a class=widget__link href=/categories/blog/>blog</a></li>
+<a class=widget__link href=/categories/amusement/>Amusement</a></li>
+<li class=widget__item>
+<a class=widget__link href=/categories/games-and-videogames/>Games and Videogames</a></li>
+<li class=widget__item>
+<a class=widget__link href=/categories/system-administration/>System Administration</a></li>
+<li class=widget__item>
+<a class=widget__link href=/categories/tips-and-tricks/>Tips and Tricks</a></li>
+<li class=widget__item>
+<a class=widget__link href=/categories/tutorial/>Tutorial</a></li>
 </ul>
 </div>
 </div>
 <div class="widget-taglist widget">
 <h4 class=widget__title>Tags</h4>
 <div class=widget__content>
+<a class="widget-taglist__link widget__link btn" href=/tags/code/ title=code>code</a>
+<a class="widget-taglist__link widget__link btn" href=/tags/command-line/ title=command-line>command-line</a>
+<a class="widget-taglist__link widget__link btn" href=/tags/dns/ title=dns>dns</a>
+<a class="widget-taglist__link widget__link btn" href=/tags/dnssec/ title=dnssec>dnssec</a>
+<a class="widget-taglist__link widget__link btn" href=/tags/docker/ title=docker>docker</a>
+<a class="widget-taglist__link widget__link btn" href=/tags/emacs/ title=emacs>emacs</a>
+<a class="widget-taglist__link widget__link btn" href=/tags/euro/ title=euro>euro</a>
+<a class="widget-taglist__link widget__link btn" href=/tags/ferm/ title=ferm>ferm</a>
+<a class="widget-taglist__link widget__link btn" href=/tags/fortune/ title=fortune>fortune</a>
+<a class="widget-taglist__link widget__link btn" href=/tags/games/ title=games>games</a>
+<a class="widget-taglist__link widget__link btn" href=/tags/gpg/ title=gpg>gpg</a>
+<a class="widget-taglist__link widget__link btn" href=/tags/gpg-agent/ title=gpg-agent>gpg-agent</a>
+<a class="widget-taglist__link widget__link btn" href=/tags/gpg2/ title=gpg2>gpg2</a>
+<a class="widget-taglist__link widget__link btn" href=/tags/hammerspoon/ title=hammerspoon>hammerspoon</a>
+<a class="widget-taglist__link widget__link btn" href=/tags/iptables/ title=iptables>iptables</a>
+<a class="widget-taglist__link widget__link btn" href=/tags/iterm2/ title=iterm2>iterm2</a>
+<a class="widget-taglist__link widget__link btn" href=/tags/json/ title=json>json</a>
+<a class="widget-taglist__link widget__link btn" href=/tags/keyboard/ title=keyboard>keyboard</a>
 <a class="widget-taglist__link widget__link btn" href=/tags/links/ title=links>links</a>
-<a class="widget-taglist__link widget__link btn" href=/tags/one/ title=one>one</a>
-<a class="widget-taglist__link widget__link btn" href=/tags/three/ title=three>three</a>
-<a class="widget-taglist__link widget__link btn" href=/tags/two/ title=two>two</a>
+<a class="widget-taglist__link widget__link btn" href=/tags/linux/ title=linux>linux</a>
+<a class="widget-taglist__link widget__link btn" href=/tags/macos/ title=macOS>macOS</a>
+<a class="widget-taglist__link widget__link btn" href=/tags/perl/ title=perl>perl</a>
+<a class="widget-taglist__link widget__link btn" href=/tags/python/ title=python>python</a>
+<a class="widget-taglist__link widget__link btn" href=/tags/ssh/ title=ssh>ssh</a>
+<a class="widget-taglist__link widget__link btn" href=/tags/tmux/ title=tmux>tmux</a>
+<a class="widget-taglist__link widget__link btn" href=/tags/tv-shows/ title=tv-shows>tv-shows</a>
+<a class="widget-taglist__link widget__link btn" href=/tags/vim/ title=vim>vim</a>
+<a class="widget-taglist__link widget__link btn" href=/tags/vpn/ title=vpn>vpn</a>
+<a class="widget-taglist__link widget__link btn" href=/tags/wine/ title=wine>wine</a>
+<a class="widget-taglist__link widget__link btn" href=/tags/wireguard/ title=wireguard>wireguard</a>
+<a class="widget-taglist__link widget__link btn" href=/tags/yubikey/ title=yubikey>yubikey</a>
+<a class="widget-taglist__link widget__link btn" href=/tags/zsh/ title=zsh>zsh</a>
 </div>
 </div>
 <div class="widget-social widget">
@@ -157,8 +197,8 @@ Electronics I enjoy watching people that talk about electronics, dissect hardwar
 </a>
 </div>
 <div class="widget-social__item widget__item">
-<a class="widget-social__link widget__link btn" title=Email href=mailto:daniel@spatof.org><svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 416 288"><path d="m0 16v256 16h16 384 16v-16V16 0h-16H16 0zm347 16-139 92.5L69 32zM199 157.5l9 5.5 9-5.5L384 46v210H32V46z"/></svg>
-<span>daniel@spatof.org</span>
+<a class="widget-social__link widget__link btn" title=Email href=mailto:daniel%20-at-%20spatof.org><svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 416 288"><path d="m0 16v256 16h16 384 16v-16V16 0h-16H16 0zm347 16-139 92.5L69 32zM199 157.5l9 5.5 9-5.5L384 46v210H32V46z"/></svg>
+<span>daniel -at- spatof.org</span>
 </a>
 </div>
 <div class="widget-social__item widget__item">
