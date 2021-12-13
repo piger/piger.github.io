@@ -3,23 +3,23 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta http-equiv=x-ua-compatible content="IE=edge">
-<title>Create fortune(6) files from Wikiquote - Daniel's blog</title>
+<title>Notes on Tailscale - Daniel's blog</title>
 <script>(function(a,b){a[b]=a[b].replace("no-js","js")})(document.documentElement,"className")</script>
 <meta name=description content>
-<meta property="og:title" content="Create fortune(6) files from Wikiquote">
-<meta property="og:description" content="I&rsquo;ve create a very simple script that create a fortune(6) file from a Wikiquote page.">
+<meta property="og:title" content="Notes on Tailscale">
+<meta property="og:description" content="The pleasure of a private network with Tailscale and how to configure ACLs.">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://blog.spatof.org/posts/2013/07/create-fortune6-files-from-wikiquote/"><meta property="article:section" content="posts">
-<meta property="article:published_time" content="2013-07-26T00:00:00+00:00">
-<meta property="article:modified_time" content="2013-07-26T00:00:00+00:00">
-<meta itemprop=name content="Create fortune(6) files from Wikiquote">
-<meta itemprop=description content="I&rsquo;ve create a very simple script that create a fortune(6) file from a Wikiquote page."><meta itemprop=datePublished content="2013-07-26T00:00:00+00:00">
-<meta itemprop=dateModified content="2013-07-26T00:00:00+00:00">
-<meta itemprop=wordCount content="143">
-<meta itemprop=keywords content="tv-shows,fortune,">
+<meta property="og:url" content="https://blog.spatof.org/posts/2021/12/notes-on-tailscale/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2021-12-13T16:05:21+00:00">
+<meta property="article:modified_time" content="2021-12-13T16:05:21+00:00">
+<meta itemprop=name content="Notes on Tailscale">
+<meta itemprop=description content="The pleasure of a private network with Tailscale and how to configure ACLs."><meta itemprop=datePublished content="2021-12-13T16:05:21+00:00">
+<meta itemprop=dateModified content="2021-12-13T16:05:21+00:00">
+<meta itemprop=wordCount content="890">
+<meta itemprop=keywords content="networking,linux,">
 <meta name=twitter:card content="summary">
-<meta name=twitter:title content="Create fortune(6) files from Wikiquote">
-<meta name=twitter:description content="I&rsquo;ve create a very simple script that create a fortune(6) file from a Wikiquote page.">
+<meta name=twitter:title content="Notes on Tailscale">
+<meta name=twitter:description content="The pleasure of a private network with Tailscale and how to configure ACLs.">
 <link rel=preconnect href=https://fonts.gstatic.com crossorigin>
 <link rel=dns-prefetch href=//fonts.googleapis.com>
 <link rel=dns-prefetch href=//fonts.gstatic.com>
@@ -63,46 +63,121 @@
 <main class=main role=main>
 <article class=post>
 <header class=post__header>
-<h1 class=post__title>Create fortune(6) files from Wikiquote</h1>
+<h1 class=post__title>Notes on Tailscale</h1>
 <div class="post__meta meta"><div class="meta__item-author meta__item">
 <svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2.0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class=meta__text>Daniel Kertesz</span>
 </div>
 <div class="meta__item-datetime meta__item">
-<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class=meta__text datetime=2013-07-26T00:00:00Z>2013-07-26</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2 1 2h8v11H0V2z"/></svg><span class=meta__text><a class=meta__link href=/categories/amusement/ rel=category>Amusement</a>
+<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class=meta__text datetime=2021-12-13T16:05:21Z>2021-12-13</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2 1 2h8v11H0V2z"/></svg><span class=meta__text><a class=meta__link href=/categories/tutorial/ rel=category>Tutorial</a>
 </span>
 </div></div>
 </header>
 <div class="content post__content clearfix">
-<h1 id=create-fortune6-files-from-wikiquote>Create fortune(6) files from Wikiquote</h1>
-<p>Yesterday I was searching for some <em>modern</em> fortune(6) files because
-I&rsquo;m really bored by the existing collections that are mostly from the
-&rsquo;90s. So after finding the <a href=http://www.splitbrain.org/projects/fortunes>Splitbrain</a> collection of fortunes which
-includes quotes from &ldquo;The X-Files&rdquo; I&rsquo;ve decided to roll my own
-solution: a simple Python script that fetch a Wikiquote_ page and
-extracts the quotes to create a fortune(6) file.</p>
-<p>You can find the script on <a href=https://github.com/piger/wikiquote2fortune>github</a>.</p>
-<p>Example usage; we fetch quotes for <a href=https://en.wikiquote.org/wiki/Lost_%28TV_series%29>Lost</a> and store them
-in <code>~/.fortunes</code>:</p>
-<pre tabindex=0><code>$ wikiquote2fortune -u 'https://en.wikiquote.org/wiki/Lost_%28TV_series%29' \
--O lost -n Lost
-$ strfile lost
-$ mkdir ~/.fortunes
-$ mv lost* ~/.fortunes
-</code></pre><p>You can test the installation running:</p>
-<pre tabindex=0><code>$ fortune ~/.fortunes
-Dr. Brooks: Dave isn't your friend, Hugo. Because Dave doesn't exist.
-
-    &quot;Lost: Dave [2.18], Season Two&quot;
-</code></pre><p>It will probably have bugs since I&rsquo;ve written it in a hurry ;)</p>
+<p>This is a post about <a href=https://tailscale.com/>Tailscale</a>, a <em>secure network that just works</em> built
+on top of <a href=https://www.wireguard.com/>Wireguard</a>.</p>
+<p>The <a href=https://tailscale.com/blog/remembering-the-lan/>Remembering the LAN</a> blog post by David
+Crawshaw resonate with me, in particular this quote:</p>
+<blockquote>
+<p>I need to help new programmers who never got to experience simple, pleasurable programming in a
+safe environment understand that programming can be fun. You can set up your environment so you
+can focus on being creative.</p>
+</blockquote>
+<p>With the Internet being a wild wild west it&rsquo;s refreshing to be able to enjoy tinkering with
+computers in a <em>private</em> environment, in particular when you can&rsquo;t keep your servers at home.</p>
+<p>You can for example purchase a relatively cheap virtual server from
+<a href=https://www.hetzner.com/cloud>Hetzner Cloud</a>, install Tailscale on it, then set up a simple
+firewall rule to only allow inbound UDP traffic on port <code>41641</code>; now your new server is
+only accessible from within your own private Tailscale network.</p>
+<p><strong>NOTE</strong>: you might want to disable <em>key expiry</em> for this virtual server in your Tailscale control
+panel.</p>
+<p>Things of course can sometimes go wrong and it&rsquo;s good to have a secondary way to access your server,
+which you have with the virtual console on Hetzner&rsquo;s control panel.</p>
+<p>The benefit of setting up this firewall rule on Hetzner itself and not on your server is that you
+don&rsquo;t have to deal with nasty surprises, like Docker exposing your containers on the public internet
+despite your iptables rules were supposed to prevent that from happening.</p>
+<p>For a good security posture you should also limit <em>outbound</em> network traffic, which is a completely
+different story. One thing you can do though is to leverage Tailscale&rsquo;s ACLs to limit what other
+devices your new virtual server can access in your private network.</p>
+<h2 id=acls-in-tailscale>ACLs in Tailscale</h2>
+<p>Tailscale&rsquo;s ACLs are documented in a <a href=https://tailscale.com/kb/1018/acls/>knowledge base article</a>,
+so here I&rsquo;ll just provide a simple example.</p>
+<p>The first thing to do is to assign a <em>tag</em> to your virtual server, as documented in the
+<a href=https://tailscale.com/kb/1068/acl-tags/>Server role accounts with ACL tags</a> document; it&rsquo;s
+important to know that when you provision a new device in Tailscale it is initially tied to your
+user&rsquo;s permissions. If your ACL rules say &ldquo;user me@github can access any device on port 22&rdquo; it means
+that any device provisioned by &ldquo;me@github&rdquo; is inheriting those permissions.</p>
+<p>Assigning tags to a device allow you to have more fine grained permissions, because it won&rsquo;t inherit
+your user&rsquo;s permissions anymore.</p>
+<p>We can for example assign the tag <code>internet</code> to our new virtual server by running the following
+command on your new virtual server:</p>
+<pre tabindex=0><code>sudo tailscale up --advertise-tags=tag:internet
+</code></pre><p>If you now remove the &ldquo;allow-all&rdquo; ACL rule from your Tailscale configuration your new virtual server
+won&rsquo;t have access to any device on your network; for reference this is the &ldquo;allow-all&rdquo; rule:</p>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{ <span style=color:#434f54>&#34;action&#34;</span>: <span style=color:#7f8c8d>&#34;accept&#34;</span>, <span style=color:#434f54>&#34;users&#34;</span>: [<span style=color:#7f8c8d>&#34;*&#34;</span>], <span style=color:#434f54>&#34;ports&#34;</span>: [<span style=color:#7f8c8d>&#34;*:*&#34;</span>] }<span style=color:#a61717>,</span>
+</code></pre></div><p>Side note: in Emacs you can use <code>jsonc-mode</code> to edit Tailscale&rsquo;s ACL rules with syntax highlighting.</p>
+<h3 id=a-more-realistic-example>A more realistic example</h3>
+<p>For a better example I&rsquo;ll describe the ACL rules for a small Tailscale network comprising three
+devices: a laptop, a Raspberry Pi server and a virtual server on the internet.</p>
+<p>First we define a group called <code>admin</code> that initially will only contain our user (<code>me@github</code>):</p>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=color:#7f8c8d>&#34;groups&#34;</span><span style=color:#a61717>:</span> {
+  <span style=color:#434f54>&#34;group:admin&#34;</span>: [
+    <span style=color:#7f8c8d>&#34;me@github&#34;</span>
+  ],
+}
+</code></pre></div><p>Then we need to tell Tailscale that our user is the owner of the <code>internet</code> tag:</p>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=color:#7f8c8d>&#34;tagOwners&#34;</span><span style=color:#a61717>:</span> {
+  <span style=color:#434f54>&#34;tag:internet&#34;</span>: [<span style=color:#7f8c8d>&#34;me@github&#34;</span>],
+}<span style=color:#a61717>,</span>
+</code></pre></div><p>Then, since the Raspberry Pi doesn&rsquo;t have a tag, we need to add a <code>hosts</code> entry to be able to
+reference it later on (<strong>NOTE</strong>: you must replace <code>100.100.100.100</code> with the Tailscale IP of your
+Raspberry Pi):</p>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=color:#7f8c8d>&#34;hosts&#34;</span><span style=color:#a61717>:</span> {
+  <span style=color:#434f54>&#34;raspberry-pi&#34;</span>: <span style=color:#7f8c8d>&#34;100.100.100.100&#34;</span>,
+}<span style=color:#a61717>,</span>
+</code></pre></div><p>Finally we can define the actual ACLs:</p>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=color:#7f8c8d>&#34;acls&#34;</span><span style=color:#a61717>:</span> [
+  <span style=color:#95a5a6>// Allow ALL:
+</span><span style=color:#95a5a6></span>  <span style=color:#95a5a6>// { &#34;action&#34;: &#34;accept&#34;, &#34;users&#34;: [&#34;*&#34;], &#34;ports&#34;: [&#34;*:*&#34;] },
+</span><span style=color:#95a5a6></span>  { <span style=color:#434f54>&#34;action&#34;</span>: <span style=color:#7f8c8d>&#34;accept&#34;</span>, <span style=color:#434f54>&#34;users&#34;</span>: [<span style=color:#7f8c8d>&#34;group:admin&#34;</span>], <span style=color:#434f54>&#34;ports&#34;</span>: [<span style=color:#7f8c8d>&#34;*:*&#34;</span>] },
+  { <span style=color:#434f54>&#34;action&#34;</span>: <span style=color:#7f8c8d>&#34;accept&#34;</span>, <span style=color:#434f54>&#34;users&#34;</span>: [<span style=color:#7f8c8d>&#34;tag:internet&#34;</span>], <span style=color:#434f54>&#34;ports&#34;</span>: [<span style=color:#7f8c8d>&#34;raspberry-pi:9100&#34;</span>] },
+]<span style=color:#a61717>,</span>
+</code></pre></div><p>The first rule is the commented &ldquo;allow-all&rdquo; rule that I&rsquo;ll keep around in case I need it while in a
+hurry; then we have two rules:</p>
+<ul>
+<li>the first rule allow any device <em>identified</em> as a user in the <code>admin</code> group to access everything;
+this means any untagged device, so in this example the &ldquo;laptop&rdquo; and &ldquo;raspberry-pi&rdquo;.</li>
+<li>the second rule allow any device tagged with <code>internet</code> to access port <code>9100</code> on the Raspberry Pi.</li>
+</ul>
+<p>To summarise the rules we have defined:</p>
+<ul>
+<li>the &ldquo;laptop&rdquo; and &ldquo;raspberry pi&rdquo; devices can access all ports of any device in our Tailscale
+network</li>
+<li>the virtual server (by the virtue of being tagged with the tag <code>internet</code>) can only access the
+&ldquo;raspberry pi&rdquo; device on port <code>9100</code></li>
+</ul>
+<h2 id=logging>Logging</h2>
+<p>If you run Tailscale on a Raspberry Pi you might want to consider limiting the amount of logging
+produced by the <code>tailscaled</code> daemon which is written on the SD card; if you&rsquo;re running the Raspberry
+Pi OS (i.e. Debian) and you want to just drop all <code>tailscaled</code> logs then write the following
+configuration in <code>/etc/rsyslog.d/10-tailscaled.conf</code>:</p>
+<pre tabindex=0><code>:programname, isequal, &quot;tailscaled&quot; stop
+</code></pre><p>Restart <code>rsyslog</code> to apply the configuration:</p>
+<pre tabindex=0><code>sudo systemctl restart rsyslog
+</code></pre><h2 id=closing-words>Closing words</h2>
+<p>As a person who played with other VPN softwares in the past, like IPSEC, OpenVPN and tinc, the
+simplicity of <a href=https://www.wireguard.com/>Wireguard</a> feels incredible. What Tailscale adds to that
+is ease of use and nice features that really bring back the joy of the LAN.</p>
+<p><a href=https://www.wireguard.com/donations/>Donate to Wireguard</a> if you can.</p>
+<p><a href=https://tailscale.com/pricing/>Get Tailscale for free</a> or check their pricing page.</p>
 </div>
 <footer class=post__footer>
 <div class="post__tags tags clearfix"><svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5.0 11V3C0 1.5.8.8.8.8S1.5.0 3 0h8c1.5.0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 100-6 3 3 0 000 6z"/></svg>
 <ul class=tags__list>
 <li class=tags__item>
-<a class="tags__link btn" href=/tags/tv-shows/ rel=tag>tv-shows</a>
+<a class="tags__link btn" href=/tags/networking/ rel=tag>networking</a>
 </li>
 <li class=tags__item>
-<a class="tags__link btn" href=/tags/fortune/ rel=tag>fortune</a>
+<a class="tags__link btn" href=/tags/linux/ rel=tag>linux</a>
 </li>
 </ul>
 </div>
@@ -122,15 +197,9 @@ John Doe&rsquo;s true identity is unknown. Maybe he is a successful blogger or w
 </div>
 <nav class="pager flex">
 <div class="pager__item pager__item--prev">
-<a class=pager__link href=/posts/2013/04/international-keyboard/ rel=prev>
+<a class=pager__link href=/posts/2021/12/keeping-a-journal/ rel=prev>
 <span class=pager__subtitle>«&#8201;Previous</span>
-<p class=pager__title>International Keyboard</p>
-</a>
-</div>
-<div class="pager__item pager__item--next">
-<a class=pager__link href=/posts/2013/08/install-unbound-dnssec-resolver-on-os-x/ rel=next>
-<span class=pager__subtitle>Next&#8201;»</span>
-<p class=pager__title>Install unbound DNS(SEC) resolver on OS X</p>
+<p class=pager__title>Keeping a journal</p>
 </a>
 </div>
 </nav>
