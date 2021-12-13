@@ -1,7 +1,6 @@
 ---
 title: "Notes on Tailscale"
 date: 2021-12-13T16:05:21Z
-draft: true
 tags:
 - networking
 - linux
@@ -11,8 +10,11 @@ summary: "The pleasure of a private network with Tailscale and how to configure 
 toc: false
 ---
 
-This [post](https://tailscale.com/blog/remembering-the-lan/) by David Crawshaw resonate with me,
-in particular this quote:
+This is a post about [Tailscale](https://tailscale.com/), a _secure network that just works_ built
+on top of [Wireguard](https://www.wireguard.com/).
+
+The [Remembering the LAN](https://tailscale.com/blog/remembering-the-lan/) blog post by David
+Crawshaw resonate with me, in particular this quote:
 
 > I need to help new programmers who never got to experience simple, pleasurable programming in a
 > safe environment understand that programming can be fun. You can set up your environment so you
@@ -117,7 +119,7 @@ Finally we can define the actual ACLs:
 The first rule is the commented "allow-all" rule that I'll keep around in case I need it while in a
 hurry; then we have two rules:
 
-- the first rule allow any device _identified_ as a user in the `admin` group to access anything;
+- the first rule allow any device _identified_ as a user in the `admin` group to access everything;
   this means any untagged device, so in this example the "laptop" and "raspberry-pi".
 - the second rule allow any device tagged with `internet` to access port `9100` on the Raspberry Pi.
 
@@ -144,3 +146,13 @@ Restart `rsyslog` to apply the configuration:
 ```
 sudo systemctl restart rsyslog
 ```
+
+## Closing words
+
+As a person who played with other VPN softwares in the past, like IPSEC, OpenVPN and tinc, the
+simplicity of [Wireguard](https://www.wireguard.com/) feels incredible. What Tailscale adds to that
+is ease of use and nice features that really bring back the joy of the LAN.
+
+[Donate to Wireguard](https://www.wireguard.com/donations/) if you can.
+
+[Get Tailscale for free](https://tailscale.com/pricing/) or check their pricing page.
