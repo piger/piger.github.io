@@ -1,6 +1,7 @@
 ---
 title: Better command line history in zsh with peco
 date: 2019-12-13T15:20:00Z
+lastmod: 2023-05-07
 tags:
 - zsh
 - command-line
@@ -9,6 +10,13 @@ lead: the good command-line stuff
 categories:
 - Tips and Tricks
 ---
+
+{{< admonition type=tip title="2021 Update" >}}
+Nowadays I'm using [fzf](https://github.com/junegunn/fzf); to see how I've integrated it into my
+zsh configuration check [this section](https://github.com/piger/Preferences/blob/e0002cec9eb0ff0a9b1fefc92c7bba16ae031ef3/zsh/zshrc#L262-L393)
+of my
+[zshrc](https://github.com/piger/Preferences/blob/e0002cec9eb0ff0a9b1fefc92c7bba16ae031ef3/zsh/zshrc).
+{{< /admonition >}}
 
 Some years ago I bumped into [peco](https://github.com/peco/peco), a *Simplistic interactive
 filtering tool* written in Go; at that time there was a bit of hype around this kind of command line
