@@ -15,7 +15,9 @@ the name of the remote host and use it to name the current tmux window; as a
 bonus feature the function will restore the previous window's name upon ssh
 termination.
 
-Update 20-Jun-2016: I've updated the `ssh` function.
+{{< admonition type=info title="Update: 13-Dec-2019" >}}
+I've posted an [updated version of this article]({{< ref "/posts/19-tmux-iterm2-ssh-rename.md" >}}).
+{{< /admonition >}}
 
 ```bash
 ssh() {

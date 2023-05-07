@@ -11,7 +11,9 @@ categories:
 - Tips and Tricks
 ---
 
-This is an update of my [old post](/posts/01-tmux-ssh-rename/).
+{{< admonition type=info >}}
+This is an updated version of one of my [old posts]({{< ref "/posts/01-tmux-ssh-rename.md" >}}).
+{{< /admonition >}}
 
 The following zsh code wraps the ssh command to grab the remote hostname, shorten it as needed and
 use it to rename the current tmux or iTerm2 window or pane. It's really handy when you connect to
