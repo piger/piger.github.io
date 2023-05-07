@@ -127,7 +127,7 @@ eval hostname="\${$OPTIND}"
 OPTIND=1
 ```
 
-The last iteration of this script offloads the whole problem to OpenSSH by levearing the `-G` option:
+The last iteration of this script offloads the whole problem to OpenSSH by leveraging the `-G` option:
 
 > `-G` Causes ssh to print its configuration after evaluating Host and Match blocks and exit.
 
@@ -253,7 +253,7 @@ thing in Linux, but that will be left as an exercise for the reader :)
 {{< /admonition >}}
 
 In a StackOverflow [answer](https://serverfault.com/a/641004) by the user [wfaulk](https://serverfault.com/users/14858/wfaulk) I learned about a nice
-trick: you can use `kqueue` to have a program wait for another program to terminate and receive an _event_ whent that happens; specifically, we want
+trick: you can use `kqueue` to have a program wait for another program to terminate and receive an _event_ when that happens; specifically, we want
 to set up a kqueue filter for `EVFILT_PROC`:
 
 > Takes the process ID to monitor as the identifier and the events to watch for in fflags, and returns when the process performs one or more of the
@@ -369,7 +369,7 @@ func main() {
 }
 ```
 
-In `$HOME/.ssh/config` we put this configuration, making sure that other `Host` lines won't interefer with our experiment:
+In `$HOME/.ssh/config` we put this configuration, making sure that other `Host` lines won't interfere with our experiment:
 
 ```
 Host *
@@ -394,7 +394,7 @@ ppid: 1
        Linux meriadoc 6.1.21-v8+ #1642 SMP PREEMPT Mon Apr  3 17:24:16 BST 2023 aarch64
 ```
 
-The first difference is that the output from ssh is _confused_ and now the lenght of our Go program's output is prepended as whitespace to the actual
+The first difference is that the output from ssh is _confused_ and now the length of our Go program's output is prepended as whitespace to the actual
 output from ssh; most importantly, the reported parent PID is now 1. In Linux pid 1 is `init` while in macOS is `launchd` and either way that's
 definitely not the `ssh` command.
 
@@ -402,20 +402,20 @@ This generally happens when a parent process exits without properly waiting for 
 in this case the kernel will assign pid 1 as the parent process of the orphaned process.
 
 So we can't use `fork()` like in C and we can't create a background process with the shell. What other options do we have? We know that `fork()` will
-interfer with Go's runtime and the child process will misbehave, but nothing prevents us from using `fork` _and_ `exec` to spawn another process from
+interfere with Go's runtime and the child process will misbehave, but nothing prevents us from using `fork` _and_ `exec` to spawn another process from
 our Go program, which means that we can write a program that:
 
 - gets its parent's pid (the `ssh` command)
 - re-executes itself passing this pid as a command-line parameter
 - exit without waiting for its _clone_ to terminate, to not block the execution of `ssh`
 
-The last important detail is about `exec.Command`'s behaviour in Go: an `exec.Cmd` struct will connect its Stdout and Stderr to `/dev/null`, unless we
+The last important detail is about `exec.Command`'s behavior in Go: an `exec.Cmd` struct will connect its Stdout and Stderr to `/dev/null`, unless we
 attach them to something. We need iTerm2 to _see_ our escape sequence, so the parent Go process must pass its Stdout to its child.
 
 There's just one thing which I'm not sure about: should the child process be placed in its own process group? From my testing so far it doesn't really
 seems to make any difference.
 
-I actually lied earlier as there's yet another important bit to consider, which also should make you realise why all of this is a fun learning
+I actually lied earlier as there's yet another important bit to consider, which also should make you realize why all of this is a fun learning
 exercise but not a good idea: what happens when `ssh` is not executed by a human, but is instead executed by another program, like for example the
 Emacs package [magit](https://magit.vc/) or [Ansible](https://www.ansible.com/)? Bad things, because the escape sequence for iTerm2 will be mixed in
 ssh own output! Can we avoid this issue by linking the parent's Stderr to the child's Stdout? iTerm2 doesn't seems to mind, but a better solution is
