@@ -166,6 +166,9 @@ Rather than having `proxy1.group1.use1.testing-example.com`, I wanted to have a 
 simple algorithm in Zsh:
 
 ```shell
+local parts=(${(s:.:)hostname})
+local short_name
+
 # if it's an IP don't shorten it and use it as it is
 if echo $hostname | grep -qE "^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$"; then
     short_name=$hostname
