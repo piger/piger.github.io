@@ -1,11 +1,11 @@
 ---
 title: "About"
 date: 2021-11-24T00:43:30Z
-draft: false
 menu: main
 authorbox: false
 toc: false
 pager: false
 ---
 
-hello
+This is my blog, where I write about computers and other things. One day I will also write an actual
+about page.
