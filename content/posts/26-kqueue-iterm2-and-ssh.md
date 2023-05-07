@@ -4,6 +4,7 @@ date: 2023-05-06T20:00:00+01:00
 tags:
 - macOS
 - ssh
+- Go
 categories:
 - Tips and Tricks
 summary: "Explore a couple of solutions to write the hostname of an ssh connection in an iTerm2 badge."
