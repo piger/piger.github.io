@@ -67,6 +67,7 @@ type   = "lunr"
 [params.page]
 [params.page.code]
 copy = true
+maxShownLines=500
 
 [params.page.share]
 enable     = true
