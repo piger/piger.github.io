@@ -204,8 +204,8 @@ exercise but not a good idea: what happens when <code>ssh</code> is not executed
 Emacs package <a href=https://magit.vc/ target=_blank rel="noopener noreffer">magit</a> or <a href=https://www.ansible.com/ target=_blank rel="noopener noreffer">Ansible</a>? Bad things, because the escape sequence for iTerm2 will be mixed in
 ssh own output! Can we avoid this issue by linking the parent&rsquo;s Stderr to the child&rsquo;s Stdout? iTerm2 doesn&rsquo;t seems to mind, but a better solution is
 not print anything at all when the destination stream is not a Terminal.</p><p>In Go we can check if a stream is a Terminal using <a href=https://pkg.go.dev/golang.org/x/term#IsTerminal target=_blank rel="noopener noreffer">term.IsTerminal</a>, so our main process can just
-check if its <code>os.Stdout</code> is a Terminal and exit early when it&rsquo;s not.</p><p>You can find the source code of this program on my GitHub: <a href=https://github.com/piger/ssh-iterm2-badge; target=_blank rel="noopener noreffer">https://github.com/piger/ssh-iterm2-badge;</a> to use it you need to configure OpenSSH
-accordingly:</p><pre tabindex=0><code>Host *
+check if its <code>os.Stdout</code> is a Terminal and exit early when it&rsquo;s not.</p><p>You can find the source code of this program on my GitHub: <a href=https://github.com/piger/ssh-iterm2-badge target=_blank rel="noopener noreffer">https://github.com/piger/ssh-iterm2-badge</a>; to
+use it you need to configure OpenSSH accordingly:</p><pre tabindex=0><code>Host *
   PermitLocalCommand yes
   LocalCommand ssh-iterm2-badge %h
 </code></pre><p>You just need to ensure that no other <code>Host</code> directive is setting another <code>LocalCommand</code> or disabling <code>PermitLocalCommand</code> before this configuration
