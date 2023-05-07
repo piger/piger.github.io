@@ -427,8 +427,8 @@ not print anything at all when the destination stream is not a Terminal.
 In Go we can check if a stream is a Terminal using [term.IsTerminal](https://pkg.go.dev/golang.org/x/term#IsTerminal), so our main process can just
 check if its `os.Stdout` is a Terminal and exit early when it's not.
 
-You can find the source code of this program on my GitHub: https://github.com/piger/ssh-iterm2-badge; to use it you need to configure OpenSSH
-accordingly:
+You can find the source code of this program on my GitHub: [https://github.com/piger/ssh-iterm2-badge](https://github.com/piger/ssh-iterm2-badge); to
+use it you need to configure OpenSSH accordingly:
 
 ```
 Host *
