@@ -19,6 +19,12 @@ The following zsh code wraps the ssh command to grab the remote hostname, shorte
 use it to rename the current tmux or iTerm2 window or pane. It's really handy when you connect to
 several different servers at once.
 
+{{< admonition type=warning >}}
+This function have a subtle but annoying bug: launching `ssh` without any argument will cause the
+current terminal window to close. It took me a while to notice, because generally I would always
+execute `ssh` to connect to _something_...
+{{< /admonition >}}
+
 ```bash
 # ssh wrapper function to set tmux window (pane?) title
 
@@ -114,5 +120,5 @@ set_window_title() {
 And to restore the default window title when ssh exits, you can just invoke `set_window_title`
 passing an empty string, like `set_window_title ""`.
 
-[This code](https://github.com/piger/Preferences/blob/master/zsh/functions/ssh) can also be found on
+[This code](https://github.com/piger/Preferences/blob/e0002cec9eb0ff0a9b1fefc92c7bba16ae031ef3/zsh/functions/ssh) can also be found on
 Github in my [dotfiles repo](https://github.com/piger/Preferences).
