@@ -23,7 +23,7 @@ how it looks like on my computer:
 
 ## A word of warning
 
-Adding something to your everyday configuration that you don't fully understand might lead to unpleasant surprises, which is something that tend to
+Adding something that you don't fully understand to your everyday configuration might lead to unpleasant surprises, which is something that tend to
 happen at the worst possible time. One of the _tricks_ that I'll mention later in this post, for example, had a subtle bug that went unnoticed for
 years, until one day it manifested itself while I was working (of course!).
 
@@ -332,7 +332,7 @@ expire after a set amount of time. In this case I'm fine with having no timeout 
 
 The first return value of `syscall.Kevent`, `nev`, contains the number of events read, so we have to check if it reports at least one.
 
-So now we have a way to detect when a process exits, and if we expect our program to be executed as sub-process of ssh, we then can use `os.Getppid()`
+So now we have a way to detect when a process exits, and if we expect our program to be executed as sub-process of ssh, we can then use `os.Getppid()`
 to get our parent's pid.
 
 The escape sequence for iTerm2 is easy to implement, we only need to convert `\e` from the escape sequence in something that a non-shell can
@@ -410,7 +410,7 @@ our Go program, which means that we can write a program that:
 
 - gets its parent's pid (the `ssh` command)
 - re-executes itself passing this pid as a command-line parameter
-- exit without waiting for its _clone_ to terminate, to not block the execution of `ssh`
+- exit without waiting for its _clone_ to terminate, to avoid blocking the execution of `ssh`
 
 The last important detail is about `exec.Command`'s behavior in Go: an `exec.Cmd` struct will connect its Stdout and Stderr to `/dev/null`, unless we
 attach them to something. We need iTerm2 to _see_ our escape sequence, so the parent Go process must pass its Stdout to its child.
@@ -427,4 +427,14 @@ not print anything at all when the destination stream is not a Terminal.
 In Go we can check if a stream is a Terminal using [term.IsTerminal](https://pkg.go.dev/golang.org/x/term#IsTerminal), so our main process can just
 check if its `os.Stdout` is a Terminal and exit early when it's not.
 
-You can find the source code of this program on my GitHub: https://github.com/piger/ssh-iterm2-badge.
+You can find the source code of this program on my GitHub: https://github.com/piger/ssh-iterm2-badge; to use it you need to configure OpenSSH
+accordingly:
+
+```
+Host *
+  PermitLocalCommand yes
+  LocalCommand ssh-iterm2-badge %h
+```
+
+You just need to ensure that no other `Host` directive is setting another `LocalCommand` or disabling `PermitLocalCommand` before this configuration
+block is reached.
