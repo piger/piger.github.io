@@ -3,8 +3,10 @@
 baseurl      = "https://blog.spatof.org/"
 title        = "Daniel's blog"
 languageCode = "en-us"
-paginate     = "10" # Number of posts per page
 theme        = "LoveIt"
+
+[pagination]
+pagerSize = 10
 
 [permalinks]
 posts = '/posts/:year/:month/:title/'
@@ -37,6 +39,10 @@ weight     = 3
 identifier = "categories"
 name       = "Categories"
 url        = "/categories/"
+
+[params.author]
+name = "Daniel Kertesz"
+email = "daniel@spatof.org"
 
 [params.header]
 [params.header.title]
