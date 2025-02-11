@@ -1,4 +1,24 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>links - Tag - Daniel's blog</title><link>https://blog.spatof.org/tags/links/</link><description>links - Tag - Daniel's blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 24 Nov 2021 01:44:47 +0000</lastBuildDate><atom:link href="https://blog.spatof.org/tags/links/" rel="self" type="application/rss+xml"/><item><title>Youtube Links</title><link>https://blog.spatof.org/youtube-links/</link><pubDate>Wed, 24 Nov 2021 01:44:47 +0000</pubDate><author>Daniel Kertesz</author><guid>https://blog.spatof.org/youtube-links/</guid><description><![CDATA[Here&rsquo;s a list of content creators that I like to watch and are worth mentioning:
-Electronics I enjoy watching people that talk about electronics, dissect hardware or repair ancient devices:
-Andreas Spiess &ndash; #HomeAssistant, #IoT, #Radio Asbesto Molesto &ndash; #Radio, #Repairs (Italian) Big Clive &ndash; #Relaxing, #ReverseEngineering Mr Carlson&rsquo;s Lab &ndash; #Radio Gaming These are some people that play videogames:
-Keith Ballard Cohh Carnage &ndash; a good man that streams every day The Gaming Closet &ndash; a friend&rsquo;s channel (Italian) Food Mimmo Corcione (Italian) ]]></description></item></channel></rss>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Links - Tag - Daniel's blog</title><link>https://blog.spatof.org/tags/links/</link><description>Links - Tag - Daniel's blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>daniel@spatof.org (Daniel Kertesz)</managingEditor><webMaster>daniel@spatof.org (Daniel Kertesz)</webMaster><lastBuildDate>Wed, 24 Nov 2021 01:44:47 +0000</lastBuildDate><atom:link href="https://blog.spatof.org/tags/links/" rel="self" type="application/rss+xml"/><item><title>Youtube Links</title><link>https://blog.spatof.org/youtube-links/</link><pubDate>Wed, 24 Nov 2021 01:44:47 +0000</pubDate><author>Daniel Kertesz</author><guid>https://blog.spatof.org/youtube-links/</guid><description><![CDATA[<p>Here&rsquo;s a list of content creators that I like to watch and are worth mentioning:</p>
+<h2 id="electronics">Electronics</h2>
+<p>I enjoy watching people that talk about electronics, dissect hardware or repair ancient devices:</p>
+<ul>
+<li><a href="https://www.youtube.com/c/AndreasSpiess" target="_blank" rel="noopener noreffer ">Andreas Spiess</a> &ndash; <code>#HomeAssistant</code>, <code>#IoT</code>, <code>#Radio</code></li>
+<li><a href="https://www.youtube.com/user/asbestomolesto" target="_blank" rel="noopener noreffer ">Asbesto Molesto</a> &ndash; <code>#Radio</code>, <code>#Repairs</code> (Italian)</li>
+<li><a href="https://www.youtube.com/c/Bigclive" target="_blank" rel="noopener noreffer ">Big Clive</a> &ndash; <code>#Relaxing</code>, <code>#ReverseEngineering</code></li>
+<li><a href="https://www.youtube.com/c/MrCarlsonsLab" target="_blank" rel="noopener noreffer ">Mr Carlson&rsquo;s Lab</a> &ndash; <code>#Radio</code></li>
+</ul>
+<h2 id="gaming">Gaming</h2>
+<p>These are some people that play videogames:</p>
+<ul>
+<li><a href="https://www.youtube.com/@ChristopherOdd" target="_blank" rel="noopener noreffer ">Christopher Odd</a></li>
+<li><a href="https://www.twitch.tv/cohhcarnage/" target="_blank" rel="noopener noreffer ">Cohh Carnage</a> &ndash; a good man that streams every day</li>
+<li><a href="https://www.youtube.com/channel/UCzZ163v7t2-HzpnSvGKTXYg" target="_blank" rel="noopener noreffer ">The Gaming Closet</a> &ndash; a friend&rsquo;s channel (Italian)</li>
+</ul>
+<h2 id="rpgs">RPGs</h2>
+<ul>
+<li><a href="https://www.youtube.com/@TheRulesLawyerRPG" target="_blank" rel="noopener noreffer ">The Rules Lawyer</a></li>
+</ul>
+<h2 id="food">Food</h2>
+<ul>
+<li><a href="https://www.youtube.com/user/mimmocorcione" target="_blank" rel="noopener noreffer ">Mimmo Corcione</a> (Italian)</li>
+</ul>]]></description></item></channel></rss>
