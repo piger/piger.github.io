@@ -25,9 +25,13 @@ I enjoy watching people that talk about electronics, dissect hardware or repair 
 
 These are some people that play videogames:
 
-- [Keith Ballard](https://www.youtube.com/c/KeithBallardA)
+- [Christopher Odd](https://www.youtube.com/@ChristopherOdd)
 - [Cohh Carnage](https://www.twitch.tv/cohhcarnage/) -- a good man that streams every day
 - [The Gaming Closet](https://www.youtube.com/channel/UCzZ163v7t2-HzpnSvGKTXYg) -- a friend's channel (Italian)
+
+## RPGs
+
+- [The Rules Lawyer](https://www.youtube.com/@TheRulesLawyerRPG)
 
 ## Food
 
